@@ -8,6 +8,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -42,9 +45,11 @@ public class User extends BaseEntity{
 	
 	private Role role;
 	
+	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
 	@Column(name = "delete_status", columnDefinition = "boolean default false")
 	private boolean deleteStatus;
 	
+	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
 	@Column(name= "block_status", columnDefinition = "boolean default false")
 	private boolean blockStatus;
 	
@@ -57,18 +62,17 @@ public class User extends BaseEntity{
 	@Column(name = "extra_number_column", length = 20, columnDefinition = "integer default 1")
 	private Long extraNumberColumn;
 	
+	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
 	@Column(name = "extra_boolean_column", length = 5, columnDefinition = "boolean default false")
-	private Long extraBooleanColumn;
+	private boolean extraBooleanColumn;
 	
 	public void addAddress(Address addr) {
 	myAddresses.add(addr);
 	addr.setThisUser(this);
-	}
+	} 
 
 	public void removeAddress(Address addr) {
 	myAddresses.remove(addr);
 	addr.setThisUser(null);
 	}
-	
-	
 }
