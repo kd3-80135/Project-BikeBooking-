@@ -16,7 +16,7 @@ function Admin()
             <Link to='/userlist'> User Detials</Link>
            </div>
            <div>
-            <Link to='/userlist'> Product Detials</Link>
+            <Link to='/prod'> Product Detials</Link>
            </div>
            <div>
             <Link to='/userlist'> Future Scope</Link>
