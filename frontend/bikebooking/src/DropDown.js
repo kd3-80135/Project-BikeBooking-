@@ -13,9 +13,8 @@ var username = sessionStorage.getItem("userName");
 
       {isDropdownOpen && (
         <div className="dropdown-content">
-          {/* Add your dropdown content here */}
           <p><a href='./edit'>Profile</a></p>
-          <p>Settings</p>
+          <p><a href='./editAddress'>My Address</a></p>
           <p>Logout</p>
         </div>
       )}

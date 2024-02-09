@@ -184,6 +184,12 @@ const Header = () => {
                 </li>
                 )}
 
+{loggedin && role == "DEALER_ROLE" && (
+                    <li className="nav-item">
+                   <Dropdown />
+                </li>
+                )}
+
 
               {loggedin && (
                 <div className="logout">

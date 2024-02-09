@@ -8,7 +8,7 @@ function Dealer()
         <div>
             This is Dealer Login
         </div>
-
+       
 
     )
 }

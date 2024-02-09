@@ -11,7 +11,17 @@ function SignUp({location})
     const [users, setUsers] = useState([]);
     const [user, setUser] = useState({firstName:"", lastName:"", email:"", password:"", mobile:"", role:""});
     const [message, setMessage] = useState("")
-    const url = `http://localhost:8080/users/register/${parseInt(roleRecieved)}`
+    var url = "http://localhost:8080/users/register";
+    const updateUrl=()=>{
+        if (roleRecieved.roledealer == 2){
+            url = `http://localhost:8080/users/register/${roleRecieved.roledealer}` 
+        }
+        else{
+            url = `http://localhost:8080/users/register/${roleRecieved.rolecustomer}`
+        }
+    }
+    updateUrl();
+
     
     const OnTextChange=(args)=>{
         var user1= {...user};
