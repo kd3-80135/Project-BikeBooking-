@@ -1,5 +1,7 @@
 package com.bike.service;
 
+import java.util.List;
+
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
@@ -9,11 +11,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.bike.dao.AddressDao;
 import com.bike.dao.UserDao;
+import com.bike.dto.EditAdressDTO;
 import com.bike.dto.EditProfileDTO;
-import com.bike.dto.ResponseEntityDTO;
+import com.bike.dto.ResponseUserDTO;
 import com.bike.dto.SignInDTO;
 import com.bike.dto.SignUpDTO;
+import com.bike.entities.Address;
 import com.bike.entities.Role;
 import com.bike.entities.User;
 import com.bike.exceptions.ResourceNotFoundException;
@@ -29,6 +34,9 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private ModelMapper mapper;
 	
+	@Autowired
+	private AddressDao addressDao;
+	
 	@Override
 	public ResponseEntity<?> SignInUser(SignInDTO signin) {
 		User user = userDao.findByEmailAndPassword(signin.getEmail(), signin.getPassword());
@@ -36,11 +44,11 @@ public class UserServiceImpl implements UserService {
 			throw new ResourceNotFoundException("Invalid Credentials!! Please try again...");
 		}
 		else 
-			return ResponseEntity.status(HttpStatus.ACCEPTED).body(mapper.map(user, ResponseEntityDTO.class));
+			return ResponseEntity.status(HttpStatus.ACCEPTED).body(mapper.map(user, ResponseUserDTO.class));
 	}
 
 	@Override
-	public ResponseEntity<?> registerUser(int role, @Valid SignUpDTO signUp) {
+	public ResponseEntity<?> registerUser(int role, @Valid EditProfileDTO signUp) {
 		if(userDao.findByEmail(signUp.getEmail()) == null) {
 			Role role1 = Role.values()[role];
 			SignUpDTO dto = new SignUpDTO(signUp.getFirstName(), signUp.getLastName(), signUp.getEmail(), signUp.getPassword(), signUp.getMobile(), role1);
@@ -83,5 +91,51 @@ public class UserServiceImpl implements UserService {
 			throw new UserAlreadyExistsException("Some sql error happened while updation.");
 		}
 	}
+
+	@Override
+	public EditAdressDTO EditAddressService(Long id) {
+		User user = userDao.findById(id).get();
+		System.out.println("In Service method of UserService. The value of user is " + user);
+		List<Address> addresses = addressDao.findByThisUser(user);
+		if (addresses != null) { 
+			return mapper.map(addresses.get(0), EditAdressDTO.class);
+		}
+		else {
+			throw new ResourceNotFoundException("Invalid Id provided. No such customer Exists.");
+		}
+	}
+
+	@Override
+	public ResponseEntity<?> updateAddressService(Long id, EditAdressDTO addrDTO) {
+		List<Address> addresses = addressDao.findByThisUser(userDao.findById(id).get());
+		if (userDao.findById(id) != null) {
+			if (addresses.isEmpty()) {
+				Address address = mapper.map(addrDTO, Address.class);
+				User user = userDao.findById(id).get();
+				user.addAddress(address);
+				Address detachedAddress = addressDao.save(address);
+				return ResponseEntity.status(HttpStatus.OK).body(mapper.map(detachedAddress, EditAdressDTO.class));
+			}
+			else {	
+				System.out.println("In updateService method.");
+				Address address = addresses.get(0);
+				address.setHouseNo(addrDTO.getHouseNo());
+				address.setApartmentName(addrDTO.getApartmentName());
+				address.setArea(addrDTO.getArea());
+				address.setCity(addrDTO.getCity());
+				address.setPincode(addrDTO.getPincode());
+				address.setState(addrDTO.getState());
+				address.setStreet(addrDTO.getStreet());
+				Address detachedAddress = addressDao.save(address);
+				return ResponseEntity.status(HttpStatus.OK).body(mapper.map(detachedAddress, EditAdressDTO.class));
+			}
+		}
+		else {
+			throw new ResourceNotFoundException("Invalid Id!! No such user exists.");
+		}
+	}
+	
+
+	
 	
 }

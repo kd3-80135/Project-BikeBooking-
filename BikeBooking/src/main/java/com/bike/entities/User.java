@@ -1,23 +1,11 @@
 package com.bike.entities;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
 
 import java.util.ArrayList;
-
-import org.hibernate.annotations.Columns;
-import org.hibernate.validator.constraints.Length;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-
-import antlr.collections.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.Getter;
@@ -53,6 +41,24 @@ public class User extends BaseEntity{
 	private String mobile;	
 	
 	private Role role;
+	
+	@Column(name = "delete_status", columnDefinition = "boolean default false")
+	private boolean deleteStatus;
+	
+	@Column(name= "block_status", columnDefinition = "boolean default false")
+	private boolean blockStatus;
+	
+	@Column(name = "extra_string_column_one", length = 20, columnDefinition = "varchar(100) default 'bike1'")
+	private String extraStringColumnOne;
+	
+	@Column(name = "extra_string_column_two", length = 20, columnDefinition = "varchar(100) default 'bike2'")
+	private String extraStringColumnTwo;
+	
+	@Column(name = "extra_number_column", length = 20, columnDefinition = "integer default 1")
+	private Long extraNumberColumn;
+	
+	@Column(name = "extra_boolean_column", length = 5, columnDefinition = "boolean default false")
+	private Long extraBooleanColumn;
 	
 	public void addAddress(Address addr) {
 	myAddresses.add(addr);

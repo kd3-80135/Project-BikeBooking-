@@ -1,9 +1,6 @@
 package com.bike.entities;
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -36,7 +33,6 @@ public class Address extends BaseEntity{
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
-	@JsonIgnore
 	private User thisUser;
 	
 	@Column(unique = true, nullable = false)
@@ -51,4 +47,16 @@ public class Address extends BaseEntity{
 	@Column(nullable = false)
 	private String area;
 	
+	@Column(name = "extra_string_column_one", length = 20, columnDefinition = "varchar(100) default 'bike1'")
+	private String extraStringColumnOne;
+	
+	@Column(name = "extra_string_column_two", length = 20, columnDefinition = "varchar(100) default 'bike2'")
+	private String extraStringColumnTwo;
+	
+	@Column(name = "extra_number_column", length = 20, columnDefinition = "integer default 1")
+	private Long extraNumberColumn;
+	
+	@Column(name = "extra_boolean_column", length = 5, columnDefinition = "boolean default false")
+	private Long extraBooleanColumn;
+		
 }

@@ -12,11 +12,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bike.dto.EditAdressDTO;
 import com.bike.dto.EditProfileDTO;
 import com.bike.dto.SignInDTO;
 import com.bike.dto.SignUpDTO;
 import com.bike.service.UserService;
-
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -34,8 +34,8 @@ public class UserController {
 		System.out.println("in def ctor " + getClass());
 	}
 	
-	@PostMapping("/register")
-	public ResponseEntity<?> RegisterUser(@PathVariable int role, @RequestBody @Valid SignUpDTO signUp) {
+	@PostMapping("/register/{role}")
+	public ResponseEntity<?> RegisterUser(@PathVariable int role, @RequestBody @Valid EditProfileDTO signUp) {
 		System.out.println("In RegisterUser method of " + getClass().getName());
 		return userService.registerUser(role, signUp);
 	}
@@ -48,14 +48,26 @@ public class UserController {
 	
 	@GetMapping ("/edit/{id}")
 	public EditProfileDTO EditProfile(@PathVariable @NotNull Long id){
-		System.out.println("In Edit Profile method of Customer Controller.");
+		System.out.println("In Edit Profile method of " + getClass().getName());
 		return userService.EditProfileService(id);
 	}
 	
 	@PutMapping ("/update/{id}")
 	public ResponseEntity<?> UpdateProfile (@RequestBody @NotNull EditProfileDTO customerDTO, @PathVariable @NotNull Long id){
-		System.out.println("In Update Profile method of Customer Controller.");
+		System.out.println("In Update Profile method of "  + getClass().getName());
 		return userService.UpdateProfileService(customerDTO, id);
+	}
+	
+	@GetMapping ("/editAddress/{id}")
+	public EditAdressDTO EditAddress (@PathVariable @NotNull Long id){
+		System.out.println("In Edit Address method of "  + getClass().getName());
+		return userService.EditAddressService(id);
+	}
+	
+	@PutMapping ("/updateAddress/{id}")
+	public ResponseEntity<?> updateAddress (@PathVariable @NotNull Long id, @RequestBody @NotNull EditAdressDTO addrDTO){
+		System.out.println("In Upadate Address method of "  + getClass().getName());
+		return userService.updateAddressService(id, addrDTO);
 	}
 	
 	
