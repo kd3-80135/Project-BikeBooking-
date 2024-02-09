@@ -40,7 +40,6 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public ResponseEntity<?> SignInUser(SignInDTO signin) {
 		User user = userDao.findByEmailAndPassword(signin.getEmail(), signin.getPassword());
-		user.
 		if (user == null) {
 			throw new ResourceNotFoundException("Invalid Credentials!! Please try again...");
 		}
