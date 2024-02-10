@@ -37,12 +37,12 @@ public class Cart extends BaseEntity{
 	@OneToOne
 	@JoinColumn(name = "user_cart_id", nullable = false)
 	@MapsId
-	private User thisCartUser;
+	private User thisCartCustomer;
 	
-	@Column(name = "bike_quantity", nullable = false)
+	@Column(name = "bike_quantity", nullable = false, columnDefinition = "integer default 0")
 	private int bikeQuantity;
 	
-	@Column(name = "part_quantity", nullable = false)
+	@Column(name = "part_quantity", nullable = false, columnDefinition = "integer default 0")
 	private int partQuantity;
 	
 	@Column(name = "created_on", nullable = false)

@@ -16,14 +16,12 @@ function Admin()
             <Link to='/userlist'> User Detials</Link>
            </div>
            <div>
-            <Link to='/prod'> Product Detials</Link>
+            <Link to='/bikes'> Bike Detials</Link>
            </div>
            <div>
-            <Link to='/userlist'> Future Scope</Link>
+            <Link to='/parts'> Part Details</Link>
            </div>
-           <div>
-            <Link to='/userlist'> Future Scope</Link>
-           </div>
+           
             
             <div style={{display: 'flex', justifyContent:'right'}} >
             <img

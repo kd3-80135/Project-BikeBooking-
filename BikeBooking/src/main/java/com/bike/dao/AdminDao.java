@@ -9,7 +9,7 @@ import com.bike.entities.User;
 
 public interface AdminDao extends JpaRepository<User, Long> {
 
-	@Query("select u from User u where role in (1,2) ")
+	@Query("select u from User u where role in (1,2) and deleteStatus = 0")
 	List<User> getAllUsers ();
 	
 }

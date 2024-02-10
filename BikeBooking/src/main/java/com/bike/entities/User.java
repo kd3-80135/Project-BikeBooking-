@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.servlet.http.Part;
 
@@ -71,6 +72,9 @@ public class User extends BaseEntity{
 	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
 	@Column(name = "extra_boolean_column", length = 5, columnDefinition = "boolean default false")
 	private boolean extraBooleanColumn;
+	
+	@OneToOne(mappedBy = "thisCartCustomer", cascade = CascadeType.ALL)
+	private Cart thisCustomerCart = new Cart();
 	
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable (name = "dealer_bike_column", joinColumns = @JoinColumn(name="dealer_id"),
