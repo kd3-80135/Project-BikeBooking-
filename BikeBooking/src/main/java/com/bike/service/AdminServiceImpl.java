@@ -10,7 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.bike.dao.AdminDao;
 import com.bike.dao.PartDao;
 import com.bike.dao.TwoWheelerDao;
 import com.bike.dao.UserDao;
@@ -34,9 +33,6 @@ public class AdminServiceImpl implements AdminService{
 	private ModelMapper mapper;
 	
 	@Autowired
-	private AdminDao adminDao;
-	
-	@Autowired
 	private UserDao userDao;
 	
 	@Autowired
@@ -47,7 +43,7 @@ public class AdminServiceImpl implements AdminService{
 	
 	@Override
 	public ResponseEntity<?> getUserListService() {
-		List<User> userList = adminDao.getAllUsers();
+		List<User> userList = userDao.getAllUsers();
 		if (userList.isEmpty()) {
 			throw new ResourceNotFoundException("No Users Exist in DB. Check user table.");
 		}

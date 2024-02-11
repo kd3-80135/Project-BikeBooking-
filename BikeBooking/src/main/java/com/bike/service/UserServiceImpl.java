@@ -49,7 +49,7 @@ public class UserServiceImpl implements UserService {
 		}
 		else if(user.isDeleteStatus()) {
 			String deleteMessage = "Sorry, your account has been deleted.";
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(deleteMessage);
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST ).body(deleteMessage);
 		}
 		else 
 				return ResponseEntity.status(HttpStatus.ACCEPTED).body(mapper.map(user, ResponseUserDTO.class));

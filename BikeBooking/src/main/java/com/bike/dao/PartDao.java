@@ -12,4 +12,7 @@ public interface PartDao extends JpaRepository<Parts, Long> {
 	@Query("select p from Parts p where deleteStatus = 0")
 	List<Parts> getAllParts ();
 	
+	@Query("select p from Parts p where p.name =: name")
+	Parts findPartName (String name);
+	
 }

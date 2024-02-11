@@ -14,6 +14,8 @@ import EditAddress from './EditAddress.js';
 import Userlist from './UserList.js';
 import BikeList from './BikeList.js';
 import PartList from './PartList.js';
+import DealerBikeList from './DealerBikeList.js';
+import DealerPartList from './DealerPartList.js';
 
 function Launcher(){
     return (
@@ -34,6 +36,9 @@ function Launcher(){
                 <Route exact path="/userlist" component={Userlist}/>
                 <Route exact path="/bikes" component={BikeList}/>
                 <Route exact path="/parts" component={PartList}/>
+                <Route exact path="/bikeList" component={DealerBikeList}/>
+                <Route exact path="/partList" component={DealerPartList}/>
+                
             </Switch>
             <Footer />
         </div>

@@ -46,6 +46,7 @@ const SignIn = () => {
       setErrorMessage(error.message);
     });
 };
+console.log(user)
 //debugger;
   useEffect(() => {
    // history.push("/user"); 
@@ -80,6 +81,11 @@ sessionStorage.setItem("userId",user.id)
 sessionStorage.setItem("isLoggedin","true")
 sessionStorage.setItem("role", user.role) 
 console.log("in customer")       
+}
+
+else if(status === 400){
+  alert(user.message);
+  console.log(user);
 }
 
 else if (user && user.status === "error") {
@@ -145,6 +151,9 @@ alert(user.error);
               Password
             </label>
           </div>
+          <div>
+              
+          </div>
           <div className="form-group my-3">
             <button onClick={handleSubmit} className="btn btn-info btn-lg btn-block" value="submit">
             
@@ -158,7 +167,7 @@ alert(user.error);
           </p>
           <p>
             Don't have an account?{" "}
-            <a href="/signup" className="link-info">
+            <a href="/setrole" className="link-info">
               Register here
             </a>
           </p>

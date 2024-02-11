@@ -3,13 +3,14 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-function PartList() {
+function DealerPartList() {
     const [parts, setPartList] = useState([]);
     const [message, setMessage] = useState("");
+var id= sessionStorage.getItem("userId");
 
     function getData() {
 
-        axios.get("http://localhost:8080/users/admin/parts")
+        axios.get(`http://localhost:8080/users/dealer/partList/${id}`)
 
             .then((response) => {
                 setPartList(response.data)
@@ -31,7 +32,7 @@ function PartList() {
 
 
     function handleDelete(id) {
-        axios.delete(`http://localhost:8080/users/admin/deletePart/${id}`)
+        axios.delete(`http://localhost:8080/users/dealer/deletePart/${id}`)
             .then(() => {
                 getData();
                 ShowMessage("record added successfully");
@@ -119,4 +120,4 @@ function PartList() {
     );
 }
 
-export default PartList;
+export default DealerPartList;
