@@ -40,11 +40,19 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public ResponseEntity<?> SignInUser(SignInDTO signin) {
 		User user = userDao.findByEmailAndPassword(signin.getEmail(), signin.getPassword());
-		if (user == null) {
+		if (user == null ) {
 			throw new ResourceNotFoundException("Invalid Credentials!! Please try again...");
 		}
+		else if(user.isBlockStatus()) {
+			String blockMessage = "Sorry, your account has been blocked. Please contact us for further details.";
+			return ResponseEntity.status(HttpStatus.CONTINUE).body(blockMessage);
+		}
+		else if(user.isDeleteStatus()) {
+			String deleteMessage = "Sorry, your account has been deleted.";
+			return ResponseEntity.status(HttpStatus.CONTINUE).body(deleteMessage);
+		}
 		else 
-			return ResponseEntity.status(HttpStatus.ACCEPTED).body(mapper.map(user, ResponseUserDTO.class));
+				return ResponseEntity.status(HttpStatus.ACCEPTED).body(mapper.map(user, ResponseUserDTO.class));
 	}
 
 	@Override

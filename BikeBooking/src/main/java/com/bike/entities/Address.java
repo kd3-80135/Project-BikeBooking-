@@ -58,5 +58,5 @@ public class Address extends BaseEntity{
 	
 	@Column(name = "extra_boolean_column", length = 5, columnDefinition = "boolean default false")
 	private Long extraBooleanColumn;
-		
+		 
 }

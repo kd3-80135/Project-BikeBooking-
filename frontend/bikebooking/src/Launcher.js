@@ -12,7 +12,7 @@ import SetRole from './SetRole.js';
 import EditProfile from './EditProfile.js';
 import EditAddress from './EditAddress.js';
 import Userlist from './UserList.js';
-import ProductList from './ProductList.js';
+import BikeList from './BikeList.js';
 
 function Launcher(){
     return (
@@ -31,7 +31,7 @@ function Launcher(){
                 <Route exact path="/edit" component={EditProfile}/>
                 <Route exact path="/editAddress" component={EditAddress}/>
                 <Route exact path="/userlist" component={Userlist}/>
-                <Route exact path="/productlist" component={ProductList}/>
+                <Route exact path="/bikes" component={BikeList}/>
             </Switch>
             <Footer />
         </div>

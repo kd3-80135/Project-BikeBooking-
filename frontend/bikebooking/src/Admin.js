@@ -9,16 +9,21 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 function Admin()
 {
     return(
-        
+
         <div>
             
             <div>
             <Link to='/userlist'> User Detials</Link>
            </div>
            <div>
-            <Link to='/productlist'> Product Detials</Link>
+            <Link to='/bikes'> Bike Detials</Link>
            </div>
-           
+           <div>
+            <Link to='/partlist'> Part Details</Link>
+           </div>
+           <div>
+            <Link to='/userlist'> Future Scope</Link>
+           </div>
             
             <div style={{display: 'flex', justifyContent:'right'}} >
             <img
