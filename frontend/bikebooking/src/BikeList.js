@@ -1,65 +1,86 @@
 import axios from "axios";
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-function ProductList() {
-    const [bikes, setBikesList] = useState([]);
-    const [message, setMessage]= useState("");
-    function getData (){
-        axios.get("http://localhost:8080/users/admin/bikes")
-        .then((response)=>{
-            setBikesList(response.data)
-        })
-        .catch((err)=>{
-            console.log(err);
-        });
-    };
+function BikeList() {
+  const [bikes, setBikesList] = useState([]);
+  const [message, setMessage] = useState("");
+  function getData() {
+    axios.get("http://localhost:8080/users/admin/bikes")
+      .then((response) => {
+        setBikesList(response.data)
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
-    const ShowMessage = (msgText)=>{
-        setMessage(msgText);
-        window.setTimeout(()=>{
-            setMessage("");
-        },3000);
-    };
+  const ShowMessage = (msgText) => {
+    setMessage(msgText);
+    window.setTimeout(() => {
+      setMessage("");
+    }, 3000);
+  };
 
-    useEffect(()=>{
+  useEffect(() => {
+    getData();
+  }, []);
+
+
+  function handleDelete(id) {
+    axios.delete(`http://localhost:8080/users/admin/deleteBike/${id}`)
+      .then(() => {
         getData();
-    },[]);
-    
+        ShowMessage("delete removed successfully");
+        //if i click on delete button it will deleted the products from dealer & also from customers
+      }).catch((err) => {
+        console.log(err)
+      });
+  }
 
-    function handleDelete(id){
-        axios.delete(`http://localhost:8080/bikes/${id}`)
-        .then(()=>{
-            getData();
-            ShowMessage("record added successfully");
-        }).catch((err)=>{
-            console.log(err)
-        });
+  function handleApprove(id) {
+    axios.put(`http://localhost:8080/users/admin/approveBike/${id}`)
+      .then(() => {
+        getData();
+        ShowMessage("approved successfully");
+        //if i click on approve button it the approve status from false to true
+      }).catch((err) => {
+        console.log(err)
+      });
+  }
+  function handleUnApprove(id) {
+    axios.put(`http://localhost:8080/users/admin/disproveBike/${id}`)
+      .then(() => {
+        getData();
+        ShowMessage("dis-approved successfully");
+        //if i click on approve button it the approve status from false to true
+      }).catch((err) => {
+        console.log(err)
+      });
+  }
+
+  function types(type) {
+    if (type == 0) {
+      bikes.bikeType = "SCOOTER";
     }
-
-    function types(type){
-      if (type == 0) {
-        bikes.bikeType="SCOOTER";
-      }
-      else
-      {
-        bikes.bikeType="BIKE";
-      }
+    else {
+      bikes.bikeType = "BIKE";
     }
+  }
 
-    function setDataToStorage(id, bikeName, Quantity, bikeType, bikeBrands, colour, approveStatus, deleteStatus) {
-        localStorage.setItem('id', id);
-        localStorage.setItem('bikeName', bikeName);
-        localStorage.setItem('Quantity', Quantity);
-        localStorage.setItem('bikeBrands', bikeBrands);
-        localStorage.setItem('colour', colour);
-        localStorage.setItem('approveStatus', approveStatus);
-        localStorage.setItem('deleteStatus', deleteStatus);
-      }
+  function setDataToStorage(id, bikeName, Quantity, bikeType, bikeBrands, colour, approveStatus, deleteStatus) {
+    localStorage.setItem('id', id);
+    localStorage.setItem('bikeName', bikeName);
+    localStorage.setItem('Quantity', Quantity);
+    localStorage.setItem('bikeBrands', bikeBrands);
+    localStorage.setItem('colour', colour);
+    localStorage.setItem('approveStatus', approveStatus);
+    localStorage.setItem('deleteStatus', deleteStatus);
+  }
 
-    return ( 
+  return (
     <div className="container">
-<h3>Product List</h3>
+      <h3>Bikes List</h3>
 
       <table className="table table-responsive">
         <thead>
@@ -71,30 +92,63 @@ function ProductList() {
             <th>Brand</th>
             <th>Colour</th>
 
-            <th>Status</th>
-            <th>Delete</th>
+            <th>Approve Status</th>
+            <th>Delete Status</th>
           </tr>
         </thead>
         <tbody>
-          {bikes.map((product) => (
+          {bikes.map((bikes) => (
             <tr >
+
               <td>{bikes.id}</td>
-                <td>{bikes.Name}</td>
-                <td>{bikes.quantity}</td>
-                <td>{bikes.biketype}</td>
-                <td>{bikes.bikeBrands}</td>
-                <td>{bikes.color}</td>
+              <td>{bikes.name}</td>
+              <td>{bikes.quantity}</td>
+              <td>{bikes.bikeType}</td>
+              <td>{bikes.bikeBrands}</td>
+              <td>{bikes.colour}</td>
+              <td>
+                {bikes.approveStatus == 0 && (
+                  <h6>No</h6>
+                )}
+                {bikes.approveStatus == 1 && (
+                  <h6>Yes</h6>
+                )}
+              </td>
+
 
               <td>
                 <button className='btn btn-danger' onClick={() => {
-                  if (window.confirm('Are You Sure To Delete Data ??')) { handleDelete(product.id) }
+                  if (window.confirm('Are You Sure To Delete Data ??')) { handleDelete(bikes.id) }
                 }}>Delete</button>
+              </td>
+
+              <td>
+                {bikes.approveStatus == 0 && (
+
+                  <button className="btn btn-info"
+                    onClick={() => {
+                      if (window.confirm('Are You Sure To Approve Data ??')) { handleApprove(bikes.id) }
+                    }}>Approve</button>
+
+                )}
+                {bikes.approveStatus == 1 && (
+
+
+                  <button className="btn btn-info"
+                    onClick={() => {
+                      if (window.confirm('Are You Sure To UnApprove  Data ??')) { handleUnApprove(bikes.id) }
+                    }}>UnApprove</button>
+
+                )}
               </td>
             </tr>
           ))}
         </tbody>
       </table>
-    </div> );
+      <div className="alert alert-success">
+        {message}
+      </div>
+    </div>);
 }
 
-export default ProductList;
+export default BikeList;

@@ -47,10 +47,10 @@ public class AdminController {
 		return adminService.blockUserService(id);
 	}
 	
-	@PutMapping("/unBlockUser/{email}")
-	public ResponseEntity<?> unBlockUser (@PathVariable @Valid String email){
+	@PutMapping("/unBlockUser/{id}")
+	public ResponseEntity<?> unBlockUser (@PathVariable @Valid long id){
 		System.out.println("In blockUser method of " + getClass().getName());
-		return adminService.unBlockUserService(email);
+		return adminService.unBlockUserService(id);
 	}
 	
 	@GetMapping("/bikes")
@@ -65,8 +65,40 @@ public class AdminController {
 		return adminService.getPartListService();
 	}
 	
+	@PutMapping("/approveBike/{id}")
+	public ResponseEntity<?> approveBike (@PathVariable @Valid long id){
+		System.out.println("In approveBike method of " + getClass().getName());
+		return adminService.approveBikeService(id);
+	}
 	
+	@PutMapping("/approvePart/{id}")
+	public ResponseEntity<?> approvePart (@PathVariable @Valid long id){
+		System.out.println("In approvePart method of " + getClass().getName());
+		return adminService.approvePartService(id);
+	}
 	
+	@PutMapping("/disproveBike/{id}")
+	public ResponseEntity<?> disproveBike (@PathVariable @Valid long id){
+		System.out.println("In disproveBike method of " + getClass().getName());
+		return adminService.disproveBikeService(id);
+	}
 	
+	@PutMapping("/disprovePart/{id}")
+	public ResponseEntity<?> disprovePart (@PathVariable @Valid long id){
+		System.out.println("In disprovePart method of " + getClass().getName());
+		return adminService.disprovePartService(id);
+	}
+	
+	@DeleteMapping ("/deleteBike/{id}")
+	public ResponseEntity<?> deleteBike (@PathVariable @Valid long id){
+		System.out.println("In deleteBike method of " + getClass().getName());
+		return adminService.deleteBikeService(id);
+	}
+	
+	@DeleteMapping ("/deletePart/{id}")
+	public ResponseEntity<?> deletePart (@PathVariable @Valid long id){
+		System.out.println("In deletePart method of " + getClass().getName());
+		return adminService.deletePartService(id);
+	}
 	
 }

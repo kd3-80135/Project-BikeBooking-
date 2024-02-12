@@ -1,7 +1,5 @@
 package com.bike.dto;
 
-import java.time.LocalDateTime;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,11 +11,15 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class ResponseDTO {
-	private LocalDateTime timeStamp;
-	private String message;
-	public ResponseDTO(String message) {
-		this.timeStamp=LocalDateTime.now();
-		this.message=message;
-	}
+public class AddPartDTO {
+	
+	private String name;
+
+	private double price;	
+
+	private String description;	
+
+	private int quantity;	
+	
+	private boolean approveStatus;
 }

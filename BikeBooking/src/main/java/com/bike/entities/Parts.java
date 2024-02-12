@@ -63,12 +63,12 @@ public class Parts extends BaseEntity{
 	private Set<User> dealerSet = new HashSet<>();
 	
 	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable (name = "order_bikePart_column", joinColumns = @JoinColumn(name="part_id"),
+	@JoinTable (name = "order_part_column", joinColumns = @JoinColumn(name="part_id"),
 											inverseJoinColumns =@JoinColumn(name="order_id") )
 	private Set<Orders> partOrderSet = new HashSet<>();
 	
 	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable (name = "cart_bikePart_column", joinColumns = @JoinColumn(name="part_id"),
+	@JoinTable (name = "cart_part_column", joinColumns = @JoinColumn(name="part_id"),
 											inverseJoinColumns =@JoinColumn(name="cart_id") )
 	private Set<Cart> partCartSet = new HashSet<>();
 	

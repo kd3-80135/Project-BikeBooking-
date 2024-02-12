@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 
 function Dealer()
@@ -6,8 +7,15 @@ function Dealer()
     return(
 
         <div>
-            This is Dealer Login
+            <div>
+            <Link to='/bikeList'> Bike List</Link>
+           </div>
+           <div>
+            <Link to='/partList'> Part List</Link>
+           </div>
         </div>
+
+        
        
 
     )

@@ -13,6 +13,15 @@ import EditProfile from './EditProfile.js';
 import EditAddress from './EditAddress.js';
 import Userlist from './UserList.js';
 import BikeList from './BikeList.js';
+import PartList from './PartList.js';
+import DealerBikeList from './DealerBikeList.js';
+import DealerPartList from './DealerPartList.js';
+import AddBike from './AddBike.js';
+import EditDealerBike from './EditDealerBike.js';
+import AddPart from './AddPart.js';
+import EditDealerPart from './EditDealerPart.js';
+import CustomerBikeList from './CustomerBikeList.js';
+import BikeDetails from './BikeDetails.js';
 
 function Launcher(){
     return (
@@ -32,6 +41,15 @@ function Launcher(){
                 <Route exact path="/editAddress" component={EditAddress}/>
                 <Route exact path="/userlist" component={Userlist}/>
                 <Route exact path="/bikes" component={BikeList}/>
+                <Route exact path="/parts" component={PartList}/>
+                <Route exact path="/bikeList" component={DealerBikeList}/>
+                <Route exact path="/partList" component={DealerPartList}/>
+                <Route exact path="/addbike" component={AddBike} />
+                <Route exact path="/editbike" component={EditDealerBike} />
+                <Route exact path="/addPart" component={AddPart} />
+                <Route exact path="/editpart" component={EditDealerPart} />
+                <Route exact path="/customerbikelist" component={CustomerBikeList} />
+                <Route exact path="/bikeDetails" component={BikeDetails} />
             </Switch>
             <Footer />
         </div>

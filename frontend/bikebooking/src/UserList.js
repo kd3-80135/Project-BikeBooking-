@@ -38,16 +38,27 @@ function Userlist() {
         console.log(err)
       });
   }
-  // function handleDelete(id) {
-  //   axios.delete(`http://localhost:8080/users/admin/deleteUser/${id}`)
-  //     .then(() => {
+  function handleBlock(id) {
+    axios.put(`http://localhost:8080/users/admin/blockUser/${id}`)
+      .then(() => {
 
-  //       getData();
-  //       ShowMessage("Record Deleted Successfully");
-  //     }).catch((err) => {
-  //       console.log(err)
-  //     });
-  // }
+        getData();
+        ShowMessage("Record Blocked Successfully");
+      }).catch((err) => {
+        console.log(err)
+      });
+  }
+  function handleUnBlock(id) {
+    axios.put(`http://localhost:8080/users/admin/unBlockUser/${id}`)
+      .then(() => {
+
+        getData();
+        ShowMessage("Record Unblocked Successfully");
+      }).catch((err) => {
+        console.log(err)
+      });
+  }
+
     return (
         <div className="container">
         <h3>User List</h3>
@@ -78,9 +89,27 @@ function Userlist() {
                   }}>Delete</button>
                 </td>
                 <td>
-                  <Link to='/blockuser'>
+                  {/* <Link to='/blockuser'>
                     <button className='btn btn-primary' >BLOCK</button>
-                  </Link>
+                  </Link> */}
+                  { user.blockStatus == 0 && (
+                  
+                    
+                      <button className="btn btn-info"
+                      onClick={() => {
+                        if (window.confirm('Are You Sure To Block  Data ??')) { handleBlock(user.id) }
+                      }}>block</button>
+                    
+                  )}
+                  { user.blockStatus == 1 && (
+                  
+                    
+                      <button className="btn btn-info"
+                      onClick={() => {
+                        if (window.confirm('Are You Sure To UnBlock  Data ??')) { handleUnBlock(user.id) }
+                      }}>Unblock</button>
+                    
+                  )}
                 </td>
               </tr>
             ))}

@@ -1,12 +1,17 @@
 import React from "react";
-
+import { Link } from "react-router-dom";
 
 function User()
 {
     return(
 
         <div>
-            This is User Login
+            <div>
+            <Link to='/customerbikelist'> Bike List</Link>
+           </div>
+           <div>
+            <Link to='/partList'> Part List</Link>
+           </div>
         </div>
 
 

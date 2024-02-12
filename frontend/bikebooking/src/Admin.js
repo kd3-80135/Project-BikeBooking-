@@ -19,11 +19,9 @@ function Admin()
             <Link to='/bikes'> Bike Detials</Link>
            </div>
            <div>
-            <Link to='/partlist'> Part Details</Link>
+            <Link to='/parts'> Part Details</Link>
            </div>
-           <div>
-            <Link to='/userlist'> Future Scope</Link>
-           </div>
+           
             
             <div style={{display: 'flex', justifyContent:'right'}} >
             <img

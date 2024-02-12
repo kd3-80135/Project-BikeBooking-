@@ -118,17 +118,19 @@ const Header = () => {
                     </Link>
                   </li>)}
 
-                <li className="nav-item">
+                {/* <li className="nav-item">
                   <Link to="/about">
                     <span className="nav-link">About Us</span>
                   </Link>
-                </li>
+                </li> */}
 
                 <li className="nav-item">
                   <Link to="/contact">
                     <span className="nav-link">Contact Us</span>
                   </Link>
                 </li>
+
+                
 
                 {loggedin && role == "CUSTOMER_ROLE" && (
                   <li className="nav-item">
@@ -138,13 +140,7 @@ const Header = () => {
                   </li>)}
 
 
-                {loggedin && role == "CUSTOMER_ROLE" && (
-                  <li className="nav-item">
-                    <Link to="/myorders">
-                      <span className="nav-link">Orders</span>
-                    </Link>
-                  </li>
-                )}
+                
 
                 
 
