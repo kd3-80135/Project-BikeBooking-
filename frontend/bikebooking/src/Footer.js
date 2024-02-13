@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 //import "../node_modules/bootstrap/dist/css"
 
  function Footer()
@@ -7,6 +8,18 @@ import React from "react";
         <div className='blockcode'>
         <div>
         <footer className="bg-light text-center text-white">
+          <div>
+
+          <li className="nav-item">
+  <Link to="/about" style={{ textDecoration: 'none' }}>
+    <span className="nav-link" style={{ borderBottom: '2px solid #yourColor', paddingBottom: '2px', color: 'black' }}>
+      About Us
+    </span>
+  </Link>
+</li>
+
+
+          </div>
   {/* Grid container */}
   {/* <div className="container p-4 pb-0"> */}
   <div>

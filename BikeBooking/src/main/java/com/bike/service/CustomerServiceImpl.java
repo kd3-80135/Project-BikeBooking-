@@ -1,6 +1,7 @@
 package com.bike.service;
 
 import org.springframework.transaction.annotation.Transactional;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,10 +10,21 @@ import org.springframework.stereotype.Service;
 import com.bike.dao.CartDao;
 import com.bike.dao.PartDao;
 import com.bike.dao.TwoWheelerDao;
+import com.bike.dao.UserDao;
+import com.bike.dto.AddBikeDTO;
+import com.bike.dto.AddPartDTO;
+import com.bike.dto.BikeDTO;
+import com.bike.dto.PartDTO;
 import com.bike.entities.Cart;
 import com.bike.entities.Parts;
 import com.bike.entities.TwoWheelers;
+import com.bike.entities.User;
 import com.bike.exceptions.ResourceNotFoundException;
+
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Transactional
 @Service
@@ -30,13 +42,51 @@ public class CustomerServiceImpl implements CustomerService {
 	
 	@Autowired
 	private PartDao partDao;
+	
+	@Autowired
+	private ModelMapper mapper;
+	
+	@Autowired
+	private UserDao userDao;
 
+//	@Override
+//	public ResponseEntity<?> addBikeToCartService(long cartId, long bikeId) {
+//		User user = userDao.findById(cartId).get();
+//		
+//		
+//			Cart cart = cartDao.findById(cartId).orElseThrow(()->null);
+//			if(cart==null) {
+//				cart = new Cart(user, 0, 0, LocalDate.now(),LocalDate.now(), null, null, null, false);
+//			}	
+//			TwoWheelers bike = twoWheelerDao.findById(bikeId).get();
+//			if (cart != null && bike!= null) {
+//				cart.setBikeQuantity(1);
+//				bike.addCart(cart);
+//				String message = "Bike added to cart!!";
+//				return ResponseEntity.status(HttpStatus.OK).body(message);
+//			}
+//			else {
+//				throw new ResourceNotFoundException("Either user(cart) or the bike is not available.");
+//			}
+//			
+//		
+//	}
+	
 	@Override
 	public ResponseEntity<?> addBikeToCartService(long cartId, long bikeId) {
-		Cart cart = cartDao.findById(cartId).get();
+		User user = userDao.findById(cartId).get();
+		Cart cart;
+		Optional<Cart> optionalCart = cartDao.findById(cartId);
+		if (optionalCart.isPresent()) {
+			cart = optionalCart.get();
+		}
+		else {
+			cart = new Cart(user, 0, 0, LocalDate.now(), LocalDate.now(), null, null, null, false);
+		}
 		TwoWheelers bike = twoWheelerDao.findById(bikeId).get();
 		if (cart != null && bike!= null) {
 			bike.addCart(cart);
+			cart.setBikeQuantity(1);
 			String message = "Bike added to cart!!";
 			return ResponseEntity.status(HttpStatus.OK).body(message);
 		}
@@ -47,9 +97,11 @@ public class CustomerServiceImpl implements CustomerService {
 
 	@Override
 	public ResponseEntity<?> addPartToCartService(long cartId, long partId) {
-		Cart cart = cartDao.findById(cartId).get();
+		User user = userDao.findById(cartId).get();
+		Cart cart = new Cart(user, 0, 0, LocalDate.now(),LocalDate.now(), null, null, null, false);
 		Parts part = partDao.findById(cartId).get();
 		if (cart != null && part!= null) {
+			cart.setPartQuantity(1);
 			part.addCart(cart);
 			String message = "Part added to cart!!";
 			return ResponseEntity.status(HttpStatus.OK).body(message);
@@ -162,6 +214,58 @@ public class CustomerServiceImpl implements CustomerService {
 			throw new ResourceNotFoundException("User(cart) is not available.");
 		}
 	}
+
+	@Override
+	public ResponseEntity<?> bikeListService() {
+		List<TwoWheelers> bikeList = twoWheelerDao.findBikesAllForUsers();
+		if (bikeList.isEmpty()) {
+			throw new ResourceNotFoundException("No bikes available at the moment.");
+		}
+		else {
+			List<BikeDTO> bikeDTOList = bikeList.stream()
+							.map(b -> new BikeDTO(b.getId(),b.getName(), b.getPrice(), b.getQuantity(), b.getBikeType(), b.getBikeBrands(), b.getDescription(), b.getColour())) 
+							.collect(Collectors.toList());
+			return ResponseEntity.status(HttpStatus.OK).body(bikeDTOList);
+		}
+	}
+
+	@Override
+	public ResponseEntity<?> partListService() {
+		List<Parts> partList = partDao.findPartsAllForUsers();
+		if (partList.isEmpty()) {
+			throw new ResourceNotFoundException("No parts available at the moment.");
+		}
+		else {
+			List<PartDTO> partDTOList = partList.stream()
+							.map(p -> new PartDTO(p.getId(),  p.getName(), p.getPrice(), p.getDescription(), p.getQuantity()))
+							.collect(Collectors.toList());
+			return ResponseEntity.status(HttpStatus.OK).body(partDTOList);
+		}
+	}
+
+	@Override
+	public ResponseEntity<?> getBikeService(Long id) {
+		TwoWheelers bike = twoWheelerDao.findById(id).get();
+		if (bike != null) {
+			return ResponseEntity.status(HttpStatus.OK).body(mapper.map(bike, BikeDTO.class));
+		}
+		else {
+			throw new ResourceNotFoundException("Invalid id. No such bike exists.");
+		}
+	}
+
+	@Override
+	public ResponseEntity<?> getPartService(Long id) {
+		Parts part = partDao.findById(id).get();
+		if (part != null) {
+			return ResponseEntity.status(HttpStatus.OK).body(mapper.map(part, PartDTO.class));
+		}
+		else {
+			throw new ResourceNotFoundException("Invalid id. No such part exists.");
+		}
+	}
+	
+	
 	
 	
 	

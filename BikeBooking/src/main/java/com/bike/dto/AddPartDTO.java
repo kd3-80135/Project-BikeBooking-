@@ -22,6 +22,4 @@ public class AddPartDTO {
 	private int quantity;	
 	
 	private boolean approveStatus;
-	
-
 }

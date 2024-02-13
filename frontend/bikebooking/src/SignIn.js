@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import bike from './images/image.jpg'
-import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { Redirect, useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 import  axios  from 'axios';
 
@@ -43,7 +43,7 @@ const SignIn = () => {
     })
     .catch((error) => {
       // handle sign-in error
-      setErrorMessage(error.message);
+      setErrorMessage(error.data);
     });
 };
 console.log(user)
@@ -84,12 +84,12 @@ console.log("in customer")
 }
 
 else if(status === 400){
-  alert(user.message);
+  alert("Invalid Email or Password");
   console.log(user);
 }
 
 else if (user && user.status === "error") {
-alert(user.error);
+alert("Invalid Email or Password");
 };
   }, [user]);
 
@@ -151,8 +151,8 @@ alert(user.error);
               Password
             </label>
           </div>
-          <div>
-              
+          <div className="text-danger">
+            {errorMessage}
           </div>
           <div className="form-group my-3">
             <button onClick={handleSubmit} className="btn btn-info btn-lg btn-block" value="submit">

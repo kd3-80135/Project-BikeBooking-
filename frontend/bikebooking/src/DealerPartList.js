@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 function DealerPartList() {
     const [parts, setPartList] = useState([]);
     const [message, setMessage] = useState("");
-var id= sessionStorage.getItem("userId");
+    var id = sessionStorage.getItem("userId");
 
     function getData() {
 
@@ -42,26 +42,26 @@ var id= sessionStorage.getItem("userId");
             });
     }
 
-    function handleApprove(id) {
-        axios.put(`http://localhost:8080/users/admin/approvePart/${id}`)
-            .then(() => {
-                getData();
-                ShowMessage("approved successfully");
-                //if i click on approve button it the approve status from false to true
-            }).catch((err) => {
-                console.log(err)
-            });
-    }
-    function handleUnApprove(id) {
-        axios.put(`http://localhost:8080/users/admin/disprovePart/${id}`)
-            .then(() => {
-                getData();
-                ShowMessage("disapproved successfully");
-                //if i click on approve button it the approve status from false to true
-            }).catch((err) => {
-                console.log(err)
-            });
-    }
+    // function handleApprove(id) {
+    //     axios.put(`http://localhost:8080/users/admin/approvePart/${id}`)
+    //         .then(() => {
+    //             getData();
+    //             ShowMessage("approved successfully");
+    //             //if i click on approve button it the approve status from false to true
+    //         }).catch((err) => {
+    //             console.log(err)
+    //         });
+    // }
+    // function handleUnApprove(id) {
+    //     axios.put(`http://localhost:8080/users/admin/disprovePart/${id}`)
+    //         .then(() => {
+    //             getData();
+    //             ShowMessage("disapproved successfully");
+    //             //if i click on approve button it the approve status from false to true
+    //         }).catch((err) => {
+    //             console.log(err)
+    //         });
+    // }
     return (
         <div className="container">
             <h3>Part List</h3>
@@ -73,6 +73,7 @@ var id= sessionStorage.getItem("userId");
                         <th>Quantity</th>
                         <th>ApproveStatus</th>
                         <th>Delete Status</th>
+                        <th>Delete</th>
 
                     </tr>
                 </thead>
@@ -82,18 +83,33 @@ var id= sessionStorage.getItem("userId");
                             <td>{parts.id}</td>
                             <td>{parts.name}</td>
                             <td>{parts.quantity}</td>
-                            <td>{parts.approveStatus === 0 ? "Yes" : "No"}</td>
-                            <td>{parts.deleteStatus === 0 ? "Yes" : "No"}</td>
+                            <td>
+                                {parts.approveStatus == 0 && (
+                                    <h6>No</h6>
+                                )}
+                                {parts.approveStatus == 1 && (
+                                    <h6>Yes</h6>
+                                )}
+                            </td>
                             <td>
                                 <button className='btn btn-danger' onClick={() => {
                                     if (window.confirm('Are You Sure To Delete Data ??')) { handleDelete(parts.id) }
                                 }}>Delete</button>
                             </td>
                             <td>
+
+                                <td>
+                                    <div>
+                                        <Link to={`/editPart?partId=${parts.id}`}>
+                                            <button className="btn btn-secondary">Edit</button>
+                                        </Link>
+
+                                    </div>
+                                </td>
                                 {/* <Link to='/blockuser'>
                     <button className='btn btn-primary' >BLOCK</button>
                   </Link> */}
-                                {parts.approveStatus == 0 && (
+                                {/* {parts.approveStatus == 0 && (
                                     <button className="btn btn-info"
                                         onClick={() => {
                                             if (window.confirm('Are You Sure To Approve Data ??')) { handleApprove(parts.id) }
@@ -107,12 +123,18 @@ var id= sessionStorage.getItem("userId");
                                             if (window.confirm('Are You Sure To UnApprove  Data ??')) { handleUnApprove(parts.id) }
                                         }}>UnApprove</button>
 
-                                )}
+                                )} */}
                             </td>
                         </tr>
                     ))}
                 </tbody>
             </table>
+            <div>
+                <Link to='/addPart'>
+                    <button className="btn btn-info">AddPart</button>
+                </Link>
+
+            </div>
             <div className="alert alert-success">
                 {message}
             </div>

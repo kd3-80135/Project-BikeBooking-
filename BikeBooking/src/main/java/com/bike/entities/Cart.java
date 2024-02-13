@@ -15,6 +15,7 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -24,6 +25,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "customer_cart")
 @ToString(exclude = {"bikeSet", "bikePartSet"})
 public class Cart extends BaseEntity{
@@ -63,7 +65,19 @@ public class Cart extends BaseEntity{
 	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
 	@Column(name = "extra_boolean_column", length = 5, columnDefinition = "boolean default false")
 	private boolean extraBooleanColumn;
-	
-	
+
+	public Cart(User thisCartCustomer, int bikeQuantity, int partQuantity, LocalDate createdOn, LocalDate lastUpdatedOn,
+			String extraStringColumnOne, String extraStringColumnTwo, Long extraNumberColumn,
+			boolean extraBooleanColumn) {
+		this.thisCartCustomer = thisCartCustomer;
+		this.bikeQuantity = bikeQuantity;
+		this.partQuantity = partQuantity;
+		this.createdOn = createdOn;
+		this.lastUpdatedOn = lastUpdatedOn;
+		this.extraStringColumnOne = extraStringColumnOne;
+		this.extraStringColumnTwo = extraStringColumnTwo;
+		this.extraNumberColumn = extraNumberColumn;
+		this.extraBooleanColumn = extraBooleanColumn;
+	}
 
 }

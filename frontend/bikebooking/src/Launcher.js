@@ -7,7 +7,6 @@ import {Route,Link, Switch} from 'react-router-dom';
 import SignIn from './SignIn.js';
 import Admin from './Admin.js';
 import Dealer from './Dealer.js';
-import User from './User.js';
 import SetRole from './SetRole.js';
 import EditProfile from './EditProfile.js';
 import EditAddress from './EditAddress.js';
@@ -16,6 +15,15 @@ import BikeList from './BikeList.js';
 import PartList from './PartList.js';
 import DealerBikeList from './DealerBikeList.js';
 import DealerPartList from './DealerPartList.js';
+import AddBike from './AddBike.js';
+import EditDealerBike from './EditDealerBike.js';
+import AddPart from './AddPart.js';
+import EditDealerPart from './EditDealerPart.js';
+import CustomerBikeList from './CustomerBikeList.js';
+import BikeDetails from './BikeDetails.js';
+import CustomerPartList from './CustomerPartList.js';
+import User from './User.js';
+import PartDetails from './PartDetails.js';
 
 function Launcher(){
     return (
@@ -38,7 +46,14 @@ function Launcher(){
                 <Route exact path="/parts" component={PartList}/>
                 <Route exact path="/bikeList" component={DealerBikeList}/>
                 <Route exact path="/partList" component={DealerPartList}/>
-                
+                <Route exact path="/addbike" component={AddBike} />
+                <Route exact path="/editbike" component={EditDealerBike} />
+                <Route exact path="/addPart" component={AddPart} />
+                <Route exact path="/editpart" component={EditDealerPart} />
+                <Route exact path="/customerbikelist" component={CustomerBikeList} />
+                <Route path="/bikeDetails" component={BikeDetails} />
+                <Route exact path="/partDetails" component={PartDetails} />
+                <Route exact path="/customerpartlist" component={CustomerPartList} />
             </Switch>
             <Footer />
         </div>

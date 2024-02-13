@@ -8,7 +8,7 @@ import { Navbar,Nav,Container} from 'react-bootstrap';
 import { useState } from 'react';
 import Cart from './images/cart.jpg'
 import './styles/cart.css'
-import Dropdown from './DropDown';
+import Dropdown from './Dropdown';
 
 
 
@@ -118,11 +118,11 @@ const Header = () => {
                     </Link>
                   </li>)}
 
-                <li className="nav-item">
+                {/* <li className="nav-item">
                   <Link to="/about">
                     <span className="nav-link">About Us</span>
                   </Link>
-                </li>
+                </li> */}
 
                 <li className="nav-item">
                   <Link to="/contact">
@@ -130,21 +130,17 @@ const Header = () => {
                   </Link>
                 </li>
 
+                
+
                 {loggedin && role == "CUSTOMER_ROLE" && (
                   <li className="nav-item">
                     <Link to="/showcart">
-                      <span className="nav-link"><img src={Cart} className='A' alt='cart'/></span>
+                      <span className="nav-link"><img src={Cart} className='A' alt='cart' title='cart'/></span>
                     </Link>
                   </li>)}
 
 
-                {loggedin && role == "CUSTOMER_ROLE" && (
-                  <li className="nav-item">
-                    <Link to="/myorders">
-                      <span className="nav-link">Orders</span>
-                    </Link>
-                  </li>
-                )}
+                
 
                 
 
@@ -215,14 +211,7 @@ const Header = () => {
 }
 
 
-
-
 export default Header;
-
-
-
-
-
 
 
 

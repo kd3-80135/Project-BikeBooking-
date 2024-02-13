@@ -1,6 +1,7 @@
 package com.bike.entities;
 
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -74,7 +75,7 @@ public class User extends BaseEntity{
 	private boolean extraBooleanColumn;
 	
 	@OneToOne(mappedBy = "thisCartCustomer", cascade = CascadeType.ALL)
-	private Cart thisCustomerCart = new Cart();
+	private Cart thisCustomerCart ;
 	
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable (name = "dealer_bike_column", joinColumns = @JoinColumn(name="dealer_id"),
