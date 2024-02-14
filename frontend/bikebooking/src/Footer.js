@@ -1,76 +1,70 @@
 import React from "react";
-//import "../node_modules/bootstrap/dist/css"
+import { Link } from "react-router-dom";
 
- function Footer()
-{
-    return(
-        <div className='blockcode'>
-        <div>
-        <footer className="bg-light text-center text-white">
-  {/* Grid container */}
-  {/* <div className="container p-4 pb-0"> */}
-  <div>
-    {/* Section: Social media */}
-    <section className="float-right">
-      {/* Facebook */}
-      <a
-        className="btn text-white btn-floating m-1 img"
-        style={{ backgroundColor: "#3b5998" }}
-        href="/"
-        role="button"
-      >
-        <i className="fa fa-facebook" />
-      </a>
-      {/* Twitter */}
-      <a
-        className="btn text-white btn-floating m-1"
-        style={{ backgroundColor: "#55acee" }}
-        href="/"
-        role="button"
-      >
-        <i className="fa fa-twitter" />
-      </a>
-      {/* Google */}
-      <a
-        className="btn text-white btn-floating m-1"
-        style={{ backgroundColor: "#dd4b39" }}
-        href="/"
-        role="button"
-      >
-        <i className="fa fa-google" />
-      </a>
-      {/* Instagram */}
-      <a
-        className="btn text-white btn-floating m-1"
-        style={{ backgroundColor: "#ac2bac" }}
-        href="/"
-        role="button"
-      >
-        <i className="fa fa-instagram" />
-      </a>
-    </section>
-    {/* Section: Social media */}
-  </div>
-  {/* Grid container */}
-  {/* Copyright */}
-  <div className='text-center p-3' style={{ backgroundColor: "rgba(0, 0, 0, 0.2)" }}>
-  <div
-    className="img"
-    
-    
-  >
-    © 2023-2024 Copyright:
-    <a className="text-white" href="https://en.wikipedia.org/wiki/All_rights_reserved">
-      All Rights Reserved
-    </a>
+function Footer() {
+  return (
+    <div className="footer-container">
+      <div className="blockcode">
+        <footer className="bg-light text-center text-dark p-4">
+          <div className="container">
+            <ul className="nav justify-content-center mb-3">
+              <li className="nav-item">
+                <Link to="/about" className="nav-link">
+                  About Us
+                </Link>
+              </li>
+            </ul>
 
-  </div>
-  </div>
-  {/* Copyright */}
-</footer>
-</div>
+            {/* Social Media Icons */}
+            <div className="float-right">
+              <a
+                className="btn btn-dark btn-floating m-1"
+                href="/"
+                style={{ backgroundColor: "#3b5998" }}
+                role="button"
+              >
+                <i className="fa fa-facebook" />
+              </a>
+              <a
+                className="btn btn-dark btn-floating m-1"
+                href="/"
+                style={{ backgroundColor: "#55acee" }}
+                role="button"
+              >
+                <i className="fa fa-twitter" />
+              </a>
+              <a
+                className="btn btn-dark btn-floating m-1"
+                href="/"
+                style={{ backgroundColor: "#dd4b39" }}
+                role="button"
+              >
+                <i className="fa fa-google" />
+              </a>
+              <a
+                className="btn btn-dark btn-floating m-1"
+                href="/"
+                style={{ backgroundColor: "#ac2bac" }}
+                role="button"
+              >
+                <i className="fa fa-instagram" />
+              </a>
+            </div>
 
+            {/* Copyright */}
+            <div className="text-center">
+              <p className="mb-0">
+                © 2023-2024 Copyright:{" "}
+                <a className="text-dark" href="https://en.wikipedia.org/wiki/All_rights_reserved">
+                  All Rights Reserved
+                </a>
+              </p>
+            </div>
+          </div>
+        </footer>
+      </div>
     </div>
-    )
+  );
 }
+
 export default Footer;

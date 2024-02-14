@@ -1,0 +1,47 @@
+.user-dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .profile-button {
+    background-color: #4CAF50; /* Green background color */
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .username {
+    margin-right: 5px;
+  }
+  
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+    z-index: 1;
+  }
+  
+  .dropdown-content p {
+    padding: 10px;
+    margin: 0;
+    white-space: nowrap; /* Prevent line break */
+  }
+  
+  .dropdown-content a {
+    color: #333;
+    text-decoration: none;
+    display: block;
+  }
+  
+  .dropdown-content a:hover {
+    background-color: #ddd;
+  }
+  
+  .logout {
+    color: #f44336; /* Red color for logout */
+  }
+  

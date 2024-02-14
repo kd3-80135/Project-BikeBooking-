@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -70,6 +71,28 @@ public class DealerController {
 		return dealerService.deletePartService(partId);
 	}
 	
+	@GetMapping ("/editBike/{bikeId}")
+	public ResponseEntity<?> editBike (@PathVariable @Valid long bikeId){
+		System.out.println("In editBike method of " + getClass().getName());
+		return dealerService.editBikeService(bikeId);
+	}
 	
+	@PutMapping ("/updateBike/{bikeId}")
+	public ResponseEntity<?> updateBike (@PathVariable @Valid long bikeId, @RequestBody @Valid AddBikeDTO bikeDTO){
+		System.out.println("In updateBike method of " + getClass().getName());
+		return dealerService.updateBikeService(bikeId, bikeDTO);
+	}
+	
+	@GetMapping ("/editPart/{partId}")
+	public ResponseEntity<?> editPart (@PathVariable @Valid long partId){
+		System.out.println("In editPart method of " + getClass().getName());
+		return dealerService.editPartService (partId);
+	}
+	
+	@PutMapping ("/updatePart/{partId}")
+	public ResponseEntity<?> updatePart (@PathVariable @Valid long partId, @RequestBody @Valid AddPartDTO partDTO){
+		System.out.println("In updatePart method of " + getClass().getName());
+		return dealerService.updatePartService(partId, partDTO);
+	}
 	
 }

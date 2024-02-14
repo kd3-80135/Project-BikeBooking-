@@ -21,6 +21,7 @@ import com.bike.entities.Parts;
 import com.bike.entities.TwoWheelers;
 import com.bike.entities.User;
 import com.bike.exceptions.ResourceNotFoundException;
+import com.bike.exceptions.UserAlreadyExistsException;
 
 @Service
 @Transactional
@@ -150,6 +151,65 @@ public class DealerServiceImpl implements DealerService {
 		}
 		else {
 			throw new ResourceNotFoundException("Invalid credentials!! No such part exists.");
+		}
+	}
+
+	@Override
+	public ResponseEntity<?> editBikeService(long bikeId) {
+		TwoWheelers bike = twoWheelerDao.findById(bikeId).get();
+		if (bike != null) {
+			return ResponseEntity.status(HttpStatus.OK).body(mapper.map(bike, AddBikeDTO.class));
+		}
+		else {
+			throw new ResourceNotFoundException("Invalid credentials!! No such bike found.");
+		}
+	}
+
+	@Override
+	public ResponseEntity<?> editPartService(long partId) {
+		Parts part = partDao.findById(partId).get();
+		if (part != null) {
+			return ResponseEntity.status(HttpStatus.OK).body(mapper.map(part, AddPartDTO.class));
+		}
+		else {
+			throw new ResourceNotFoundException("Invalid credentials!! No such part found.");
+		}
+	}
+
+	@Override
+	public ResponseEntity<?> updateBikeService(long bikeId, AddBikeDTO bikeDTO) {
+		TwoWheelers bike = twoWheelerDao.findById(bikeId).get();
+		bike.setName(bikeDTO.getName());
+		bike.setPrice(bikeDTO.getPrice());
+		bike.setQuantity(bike.getQuantity());
+		bike.setBikeType(bikeDTO.getBikeType());
+		bike.setBikeBrands(bikeDTO.getBikeBrands());
+		bike.setDescription(bikeDTO.getDescription());
+		bike.setColour(bike.getColour());
+		bike.setApproveStatus(bikeDTO.isApproveStatus());
+		TwoWheelers detachedBike = twoWheelerDao.save(bike);
+		if (detachedBike != null) {
+			return ResponseEntity.status(HttpStatus.OK).body(mapper.map(detachedBike, AddBikeDTO.class));
+		}
+		else {
+			throw new UserAlreadyExistsException("Some sql exception occured while adding bike.");
+		}
+	}
+
+	@Override
+	public ResponseEntity<?> updatePartService(long partId, AddPartDTO partDTO) {
+		Parts part = partDao.findById(partId).get();
+		part.setName(partDTO.getName());
+		part.setPrice(partDTO.getPrice());
+		part.setDescription(part.getDescription());
+		part.setQuantity(part.getQuantity());
+		part.setApproveStatus(part.isApproveStatus());
+		Parts detachedPart = partDao.save(part);
+		if (detachedPart != null) {
+			return ResponseEntity.status(HttpStatus.OK).body(mapper.map(detachedPart, AddPartDTO.class));
+		}
+		else {
+			throw new UserAlreadyExistsException("Some sql exception occured while adding part.");
 		}
 	}
 

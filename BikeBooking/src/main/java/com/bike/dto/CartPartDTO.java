@@ -1,5 +1,8 @@
 package com.bike.dto;
 
+import com.bike.entities.BikeBrands;
+import com.bike.entities.BikeTypes;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,15 +14,16 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class AddPartDTO {
+public class CartPartDTO {
+
+	private Long id;
 	
 	private String name;
 
 	private double price;	
 
-	private String description;	
-
-	private int quantity;	
+	private int partQuantity;	
 	
-	private boolean approveStatus;
+	private String imagePath;
+	
 }

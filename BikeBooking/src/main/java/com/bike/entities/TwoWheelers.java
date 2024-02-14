@@ -81,6 +81,9 @@ public class TwoWheelers extends BaseEntity{
 											inverseJoinColumns =@JoinColumn(name="cart_id") )
 	private Set<Cart>  bikeCartSet = new HashSet<>();
 	
+	@Column(name = "bike_image_path", nullable = false)
+	private String imagePath;
+	
 	public void addOrders (Orders order) {
 		bikeOrderSet.add(order);
 		order.getBikeSet().add(this);

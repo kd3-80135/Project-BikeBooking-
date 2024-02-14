@@ -35,7 +35,7 @@ public class Address extends BaseEntity{
 	@JoinColumn(name = "user_id")
 	private User thisUser;
 	
-	@Column(unique = true, nullable = false)
+	@Column(nullable = false)
 	private int pincode;
 	
 	@Column(nullable = false)

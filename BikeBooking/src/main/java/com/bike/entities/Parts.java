@@ -46,6 +46,9 @@ public class Parts extends BaseEntity{
 	@Column(name= "delete_status", columnDefinition = "boolean default false")
 	private boolean deleteStatus;
 	
+	@Column(name = "part_image_path", nullable = false)
+	private String imagePath;
+	
 	@Column(name = "extra_string_column_one", length = 20, columnDefinition = "varchar(100) default 'bike1'")
 	private String extraStringColumnOne;
 	

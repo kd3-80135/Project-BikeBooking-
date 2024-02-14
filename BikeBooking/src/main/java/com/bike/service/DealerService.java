@@ -1,6 +1,5 @@
 package com.bike.service;
 
-import javax.validation.Valid;
 
 import org.springframework.http.ResponseEntity;
 
@@ -20,6 +19,14 @@ public interface DealerService {
 	ResponseEntity<?> deleteBikeService(long bikeId);
 
 	ResponseEntity<?> deletePartService(long partId);
+
+	ResponseEntity<?> editBikeService(long bikeId);
+
+	ResponseEntity<?> editPartService(long partId);
+
+	ResponseEntity<?> updateBikeService(long bikeId, AddBikeDTO bikeDTO);
+
+	ResponseEntity<?> updatePartService(long partId, AddPartDTO partDTO);
 	
 
 }
