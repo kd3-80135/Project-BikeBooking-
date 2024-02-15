@@ -1,6 +1,8 @@
 import React from "react";
 import bike from './images/image.jpg';
-import './Home.css';
+import './styles/cart.css'
+
+
 
 function Home() {
     return (

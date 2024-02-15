@@ -7,13 +7,12 @@ function Cart() {
     const [bikes, setBikesList] = useState([]);
     const [parts, setPartsList] = useState([]);
     const [message, setMessage] = useState("");
-    const [currentPage, setCurrentPage] = useState(1);
 
 
     var cartId = sessionStorage.getItem("userId");
 
     function getBikeData() {
-        axios.get(`http://localhost:8080/users/customer/bikeList/${cartId}`)
+        axios.get(`http://localhost:8080/users/customer/cartBikeList/${cartId}`)
             .then((response) => {
                 setBikesList(response.data);
             })
@@ -22,7 +21,7 @@ function Cart() {
             });
     }
     function getPartData() {
-        axios.get(`http://localhost:8080/users/customer/partList/${cartId}`)
+        axios.get(`http://localhost:8080/users/customer/cartPartList/${cartId}`)
             .then((response) => {
                 setPartsList(response.data);
             })
@@ -35,10 +34,9 @@ function Cart() {
    
 
     useEffect(() => {
-        getBikeData();
         getPartData();
+        getBikeData();
     }, []);
-
 
     return (
         <div className="container">

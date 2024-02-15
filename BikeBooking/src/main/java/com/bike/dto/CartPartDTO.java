@@ -1,8 +1,5 @@
 package com.bike.dto;
 
-import com.bike.entities.BikeBrands;
-import com.bike.entities.BikeTypes;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,7 +13,7 @@ import lombok.ToString;
 @ToString
 public class CartPartDTO {
 
-	private Long id;
+	private Long partId;
 	
 	private String name;
 

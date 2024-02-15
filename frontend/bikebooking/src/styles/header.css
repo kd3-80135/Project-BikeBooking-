@@ -8,14 +8,11 @@
   padding: 10px 15px;
   background-color: #f8f9fa;
   border-radius: 5px;
-  margin-right: 10px; /* Add some space between the links */
-}
+  margin-right: 10px; }
 
 .navbar-nav .nav-link:hover {
-  background-color: #e9ecef; /* Change background color on hover */
-}
+  background-color: #e9ecef; }
 
-/* Add some styling to the active link */
 .navbar-nav .nav-item.active .nav-link {
   background-color: #007bff;
   color: #fff;

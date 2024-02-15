@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+
 function Dealer() {
     return (
         <div className="container mt-5">

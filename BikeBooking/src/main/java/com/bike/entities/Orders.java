@@ -13,6 +13,7 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -24,6 +25,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @Table(name = "Orders")
 @ToString(exclude = {"bikeSet", "bikePartSet", "thisCustomer"})
+@AllArgsConstructor
 public class Orders extends BaseEntity {
 	
 	@ManyToOne

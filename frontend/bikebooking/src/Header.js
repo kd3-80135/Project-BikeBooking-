@@ -5,7 +5,8 @@ import { useState } from 'react';
 import Cart from './images/cart.jpg';
 import Dropdown from './Dropdown';
 import bike from './images/images.png';
-import './Header.css';
+import './styles/header.css'
+
 
 const Header = () => {
   const history = useHistory();
@@ -53,9 +54,22 @@ const Header = () => {
                     </Link>
                   </li>
                 )}
-                {loggedin && (
+                 {loggedin && role == "CUSTOMER_ROLE" && (
+                  <li className="nav-item" aria-current="page">
+                    <Link to="/user">
+                      <span className="nav-link active">Home</span>
+                    </Link>
+                  </li>)}
+
+                {loggedin && role == "ADMIN_ROLE" && (
+                  <li className="nav-item" aria-current="page">
+                    <Link to="/admin">
+                      <span className="nav-link active">Home</span>
+                    </Link>
+                  </li>)}
+                {loggedin && role == "DEALER_ROLE" && (
                   <li className='nav-item' aria-current='page'>
-                    <Link to={`/${role.toLowerCase()}`}>
+                    <Link to={`/dealer`}>
                       <span className='nav-link active'>Home</span>
                     </Link>
                   </li>
@@ -69,7 +83,7 @@ const Header = () => {
                   <li className='nav-item'>
                     <Link to='/cart'>
                       <span className='nav-link'>
-                        <img src={Cart} className='A' alt='cart' title='cart' />
+                        <img src={Cart} className='A' alt='cart' title='cart' width={"35px"}  />
                       </span>
                     </Link>
                   </li>

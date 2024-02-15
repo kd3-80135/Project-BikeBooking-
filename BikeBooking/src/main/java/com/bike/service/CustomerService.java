@@ -25,13 +25,19 @@ public interface CustomerService {
 
 	ResponseEntity<?> decreasePartCountService(long cartId, long partId);
 
-	ResponseEntity<?> bikeListService(long id);
+	ResponseEntity<?> bikeListService();
 
-	ResponseEntity<?> partListService(long id);
+	ResponseEntity<?> partListService();
 
 	ResponseEntity<?> getBikeService(Long id);
 
 	ResponseEntity<?> getPartService(Long id);
+
+	ResponseEntity<?> cartBikeListService(Long userid);
+
+	ResponseEntity<?> cartPartListService(Long userid);
+
+	ResponseEntity<?> order(Long userId);
 	
 
 }

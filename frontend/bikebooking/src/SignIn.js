@@ -49,7 +49,8 @@ const SignIn = () => {
       sessionStorage.setItem("isLoggedin", "true");
       sessionStorage.setItem("role", user.role);
       console.log("in admin");
-    } else if (status === 202 && user.role === "DEALER_ROLE") {
+    } 
+    else if (status === 202 && user.role === "DEALER_ROLE") {
       history.push("/dealer");
       window.location = window.location.href;
       sessionStorage.setItem("userName", user.firstName);
@@ -57,7 +58,8 @@ const SignIn = () => {
       sessionStorage.setItem("isLoggedin", "true");
       sessionStorage.setItem("role", user.role);
       console.log("in dealer");
-    } else if (status === 202 && user.role === "CUSTOMER_ROLE") {
+    } 
+    else if (status === 202 && user.role === "CUSTOMER_ROLE") {
       history.push("/user");
       window.location = window.location.href;
       sessionStorage.setItem("userName", user.firstName);

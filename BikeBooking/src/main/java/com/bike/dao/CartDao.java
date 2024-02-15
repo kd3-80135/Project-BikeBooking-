@@ -6,28 +6,20 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import com.bike.dto.CartBikeDTO;
+import com.bike.dto.CartPartDTO;
 import com.bike.entities.Cart;
-import com.bike.entities.Parts;
-import com.bike.entities.TwoWheelers;
+import com.bike.entities.User;
+
 
 
 public interface CartDao extends JpaRepository<Cart, Long>{
 
-//	@Query("select b.bikeId, b.name, b.price, c.bikeQuantity, b.bikeType, b.bikeBrands, b.colour,"
-//			+ " b.imagePath from Cart c, c.bikeCartSet cc, TwoWheelers b where c.thisCartCustomer =:id ")
-//	List<CartBikeDTO> bikeList(Long id);
 	
-	@Query("SELECT b.bikeId, b.name, b.price, c.bikeQuantity, b.bikeType, b.bikeBrands, b.colour, b.imagePath " +
-		       "FROM Cart c JOIN c.bikeSet b " +
-		       "WHERE c.thisCartCustomer.id = :id")
-		List<CartBikeDTO> bikeList(Long id);
+	@Query("select distinct new com.bike.dto.CartBikeDTO(b.id, b.name, b.price, c.bikeQuantity, b.bikeType, b.bikeBrands, b.colour, b.imagePath) "
+			+ "from TwoWheelers b join b.bikeCartSet c where c.thisCartCustomer =:user")
+	List<CartBikeDTO> bikeList(User user);
 	
-//	@Query("select c,p from Cart c join c.partCartSet p where c.thisCartCustomer =:id ")
-//	List<Parts> partList(Long id);
+	@Query("select distinct new com.bike.dto.CartPartDTO(p.id, p.name, p.price, c.partQuantity, p.imagePath) from Parts p inner join p.partCartSet c where c.thisCartCustomer =:user")
+	List<CartPartDTO> partList(User user);
 	
-	
-	
-//	
-//	SELECT b FROM Bikes b, CartBikeColumn c, CustomerCart cc 
-//	WHERE c.cartId = cc.id AND c.bikeId = b.id
 }

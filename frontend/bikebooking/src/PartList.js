@@ -2,7 +2,7 @@ import React from "react";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-
+import "../src/styles/cart.css"
 function PartList() {
     const [parts, setPartList] = useState([]);
     const [message, setMessage] = useState("");
