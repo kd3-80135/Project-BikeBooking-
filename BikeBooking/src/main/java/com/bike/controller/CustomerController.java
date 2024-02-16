@@ -54,28 +54,28 @@ public class CustomerController {
 		return customerService.removePartFromCartService(cartId);
 	}
 	
-	@PutMapping ("/increaseBikeCount/{cartId}/{partId}")
-	public ResponseEntity<?> increaseBikeCount (@PathVariable @Valid long cartId, @PathVariable @Valid long partId){
+	@PutMapping ("/increaseBikeCount/{cartId}")
+	public ResponseEntity<?> increaseBikeCount (@PathVariable @Valid long cartId){
 		System.out.println("In increaseBikeCount method of " + getClass().getName());
-		return customerService.increaseBikeCountService(cartId, partId);
+		return customerService.increaseBikeCountService(cartId);
 	}
 	
-	@PutMapping ("/increasePartCount/{cartId}/{partId}")
-	public ResponseEntity<?> increasePartCount (@PathVariable @Valid long cartId, @PathVariable @Valid long partId){
+	@PutMapping ("/increasePartCount/{cartId}")
+	public ResponseEntity<?> increasePartCount (@PathVariable @Valid long cartId){
 		System.out.println("In increasePartCount method of " + getClass().getName());
-		return customerService.increasePartCountService(cartId, partId);
+		return customerService.increasePartCountService(cartId);
 	}
 	
-	@PutMapping ("/decreaseBikeCount/{cartId}/{partId}")
-	public ResponseEntity<?> decreaseBikeCount (@PathVariable @Valid long cartId , @PathVariable @Valid long partId){
+	@PutMapping ("/decreaseBikeCount/{cartId}")
+	public ResponseEntity<?> decreaseBikeCount (@PathVariable @Valid long cartId){
 		System.out.println("In decreaseBikeCount method of " + getClass().getName());
-		return customerService.decreaseBikeCountService(cartId, partId);
+		return customerService.decreaseBikeCountService(cartId);
 	}
 		
-	@PutMapping ("/decreasePartCount/{cartId}/{partId}")
-	public ResponseEntity<?> decreasePartCount (@PathVariable @Valid long cartId , @PathVariable @Valid long partId){
+	@PutMapping ("/decreasePartCount/{cartId}")
+	public ResponseEntity<?> decreasePartCount (@PathVariable @Valid long cartId){
 		System.out.println("In decreasePartCount method of " + getClass().getName());
-		return customerService.decreasePartCountService(cartId, partId);
+		return customerService.decreasePartCountService(cartId);
 	}
 	
 	@GetMapping ("/bikeList")

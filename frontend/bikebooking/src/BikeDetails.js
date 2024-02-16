@@ -65,7 +65,7 @@ function BikeDetails(props) {
                         <span id="submit.add-to-cart-announce" className="a-button-text" aria-hidden="true">Add to Cart</span>
                     </button>
                 </div>
-                <div>
+                <div className="alert alert-success">
                     {message}
                 </div>
             </div>

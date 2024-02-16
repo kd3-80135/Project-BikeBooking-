@@ -30,6 +30,8 @@ public interface AdminService {
 	ResponseEntity<?> deleteBikeService(long id);
 
 	ResponseEntity<?> deletePartService(long id);
+
+	ResponseEntity<?> orderListService();
 	
 	
 	

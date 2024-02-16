@@ -46,7 +46,7 @@ public class Parts extends BaseEntity{
 	@Column(name= "delete_status", columnDefinition = "boolean default false")
 	private boolean deleteStatus;
 	
-	@Column(name = "part_image_path", nullable = false)
+	@Column(name = "part_image_path")
 	private String imagePath;
 	
 	@Column(name = "extra_string_column_one", length = 20, columnDefinition = "varchar(100) default 'bike1'")
@@ -70,9 +70,7 @@ public class Parts extends BaseEntity{
 											inverseJoinColumns =@JoinColumn(name="order_id") )
 	private Set<Orders> partOrderSet = new HashSet<>();
 	
-	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable (name = "cart_part_column", joinColumns = @JoinColumn(name="part_id"),
-											inverseJoinColumns =@JoinColumn(name="cart_id") )
+	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "bikePartSet")
 	private Set<Cart> partCartSet = new HashSet<>();
 	
 	public void addOrders (Orders order) {

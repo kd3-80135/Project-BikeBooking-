@@ -1,10 +1,5 @@
 package com.bike.service;
 
-
-
-
-import javax.validation.Valid;
-
 import org.springframework.http.ResponseEntity;
 
 public interface CustomerService {
@@ -17,13 +12,13 @@ public interface CustomerService {
 
 	ResponseEntity<?> removePartFromCartService(long cartId);
 
-	ResponseEntity<?> increaseBikeCountService(long cartId, long partId);
+	ResponseEntity<?> increaseBikeCountService(long cartId);
 
-	ResponseEntity<?> increasePartCountService(long cartId, long partId);
+	ResponseEntity<?> increasePartCountService(long cartId);
 
-	ResponseEntity<?> decreaseBikeCountService(long cartId, long partId);
+	ResponseEntity<?> decreaseBikeCountService(long cartId);
 
-	ResponseEntity<?> decreasePartCountService(long cartId, long partId);
+	ResponseEntity<?> decreasePartCountService(long cartId);
 
 	ResponseEntity<?> bikeListService();
 

@@ -17,7 +17,7 @@ import lombok.ToString;
 public class CartBikeDTO {
 
 	
-	private Long bikeId;
+	private Long cartId;
 
 	
 	private String name; 

@@ -76,12 +76,10 @@ public class TwoWheelers extends BaseEntity{
 				inverseJoinColumns =@JoinColumn(name="order_id") )
 	private Set<Orders>  bikeOrderSet = new HashSet<>();
 	
-	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable (name = "cart_bike_column", joinColumns = @JoinColumn(name="bike_id"),
-				inverseJoinColumns =@JoinColumn(name="cart_id") )
+	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "bikeSet")
 	private Set<Cart>  bikeCartSet = new HashSet<>();
 	
-	@Column(name = "bike_image_path", nullable = false)
+	@Column(name = "bike_image_path")
 	private String imagePath;
 	
 	public void addOrders (Orders order) {

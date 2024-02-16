@@ -51,19 +51,14 @@ public class User extends BaseEntity{
 	@OneToMany(mappedBy = "thisUser", cascade = CascadeType.ALL, orphanRemoval = true)
 	private java.util.List<Address> myAddresses = new ArrayList<>();
 	
-	
 	private String mobile;	
-	
 	
 	private Role role;
 	
-	
-	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
 	@Column(name = "delete_status", columnDefinition = "boolean default false")
 	private boolean deleteStatus;
 	
 	
-	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
 	@Column(name= "block_status", columnDefinition = "boolean default false")
 	private boolean blockStatus;
 	

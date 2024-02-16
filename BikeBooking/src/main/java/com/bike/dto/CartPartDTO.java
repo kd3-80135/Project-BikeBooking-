@@ -13,7 +13,7 @@ import lombok.ToString;
 @ToString
 public class CartPartDTO {
 
-	private Long partId;
+	private Long cartId;
 	
 	private String name;
 

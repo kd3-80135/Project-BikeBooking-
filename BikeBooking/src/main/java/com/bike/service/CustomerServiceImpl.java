@@ -22,7 +22,8 @@ import com.bike.entities.TwoWheelers;
 import com.bike.entities.User;
 import com.bike.exceptions.ResourceNotFoundException;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -52,7 +53,7 @@ public class CustomerServiceImpl implements CustomerService {
 	@Override
 	public ResponseEntity<?> addBikeToCartService(long Id, long bikeId) {
 		User user = userDao.findById(Id).get();
-		Cart cart = new Cart(user, 0, 0, LocalDate.now(), LocalDate.now(), null, null, null, false);
+		Cart cart = new Cart(user, 0, 0, LocalDateTime.now(), LocalDateTime.now(), null, null, null, false);
 		TwoWheelers bike = twoWheelerDao.findById(bikeId).get();
 		if (cart != null && bike!= null) {
 			bike.addCart(cart);
@@ -68,7 +69,7 @@ public class CustomerServiceImpl implements CustomerService {
 	@Override
 	public ResponseEntity<?> addPartToCartService(long cartId, long partId) {
 		User user = userDao.findById(cartId).get();
-		Cart cart = new Cart(user, 0, 0, LocalDate.now(), LocalDate.now(), null, null, null, false);
+		Cart cart = new Cart(user, 0, 0, LocalDateTime.now(), LocalDateTime.now(), null, null, null, false);
 		Parts part = partDao.findById(partId).get();
 		if (cart != null && part!= null) {
 			part.addCart(cart);
@@ -108,7 +109,7 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 
 	@Override
-	public ResponseEntity<?> increaseBikeCountService(long cartId, long partId) {
+	public ResponseEntity<?> increaseBikeCountService(long cartId) {
 		Cart cart = cartDao.findById(cartId).get();
 		if (cart != null) {
 			if (cart.getBikeQuantity() < 3) {
@@ -127,7 +128,7 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 
 	@Override
-	public ResponseEntity<?> increasePartCountService(long cartId, long partId) {
+	public ResponseEntity<?> increasePartCountService(long cartId) {
 		Cart cart = cartDao.findById(cartId).get();
 		if (cart != null) {
 			if (cart.getPartQuantity() < 5) {
@@ -146,7 +147,7 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 
 	@Override
-	public ResponseEntity<?> decreaseBikeCountService(long cartId, long partId) {
+	public ResponseEntity<?> decreaseBikeCountService(long cartId) {
 		Cart cart = cartDao.findById(cartId).get();
 		if (cart != null) {
 			if (cart.getBikeQuantity() > 0) {
@@ -165,7 +166,7 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 
 	@Override
-	public ResponseEntity<?> decreasePartCountService(long cartId, long partId) {
+	public ResponseEntity<?> decreasePartCountService(long cartId) {
 		Cart cart = cartDao.findById(cartId).get();
 		if (cart != null) {
 			if (cart.getPartQuantity() > 0) {
@@ -231,7 +232,6 @@ public class CustomerServiceImpl implements CustomerService {
 		else {
 			throw new ResourceNotFoundException("Invalid id. No such part exists.");
 		}
-	
 	}
 
 	@Override
@@ -243,7 +243,7 @@ public class CustomerServiceImpl implements CustomerService {
 		}
 		else {
 			List<CartBikeDTO> bikeDTOList = bikeList.stream()
-					.map(b -> new CartBikeDTO(b.getBikeId() ,b.getName(), b.getPrice(), b.getBikeQuantity(), b.getBikeType(), b.getBikeBrands(), b.getColour(), b.getImagePath()))
+					.map(b -> new CartBikeDTO(b.getCartId() ,b.getName(), b.getPrice(), b.getBikeQuantity(), b.getBikeType(), b.getBikeBrands(), b.getColour(), b.getImagePath()))
 					.collect(Collectors.toList());
 			return ResponseEntity.status(HttpStatus.OK).body(bikeDTOList);
 		}
@@ -258,7 +258,7 @@ public class CustomerServiceImpl implements CustomerService {
 		}
 		else {
 			List<CartPartDTO> partDTOList = partList.stream()
-					.map(b -> new CartPartDTO(b.getPartId(), b.getName(), b.getPrice(), b.getPartQuantity(), b.getImagePath()))
+					.map(b -> new CartPartDTO(b.getCartId(), b.getName(), b.getPrice(), b.getPartQuantity(), b.getImagePath()))
 					.collect(Collectors.toList());
 			return ResponseEntity.status(HttpStatus.OK).body(partDTOList);
 		}
@@ -266,25 +266,38 @@ public class CustomerServiceImpl implements CustomerService {
 
 	@Override
 	public ResponseEntity<?> order(Long userId) {
-		
 		User user =  userDao.findById(userId).get();
 		List<CartBikeDTO> bikeList = cartDao.bikeList(user);
 		List<CartPartDTO> partList = cartDao.partList(user);
-		Orders order = new Orders(user, null, null, false, false, null, null, userId, false);
-		if (partList.isEmpty()) {
-			throw new ResourceNotFoundException("No parts available in cart");
+		Orders order = new Orders(user, new HashSet<TwoWheelers>(), new HashSet<Parts>(), false, LocalDateTime.now(), null, null, false, null, null, userId, false);
+		if (partList.isEmpty() && bikeList.isEmpty()) {
+			throw new ResourceNotFoundException("No bikes and parts available in cart");
 		}
 		else {
-			for (CartPartDTO cartPartDTO : partList) {
-				mapper.map(cartPartDTO, Parts.class).addOrders(order);
+			if (bikeList.isEmpty()) {
+				for (CartPartDTO cartPartDTO : partList) {
+					mapper.map(cartPartDTO, Parts.class).addOrders(order);
+				}
 			}
-			for (CartBikeDTO cartBikeDTO : bikeList) {
-				mapper.map(cartBikeDTO, TwoWheelers.class).addOrders(order);
+			else if (partList.isEmpty()){
+				for (CartBikeDTO cartBikeDTO : bikeList) {
+					String name = cartBikeDTO.getName();
+					TwoWheelers bike = twoWheelerDao.findBikeName(name);
+					bike.addOrders(order);
+				}
+			}
+			else{
+				for (CartPartDTO cartPartDTO : partList) {
+					mapper.map(cartPartDTO, Parts.class).addOrders(order);
+				}
+				for (CartBikeDTO cartBikeDTO : bikeList) {
+					mapper.map(cartBikeDTO, TwoWheelers.class).addOrders(order);
+				}
 			}
 			String message = "Order Placed Successfully.";
+			cartDao.deleteUserCart(user);
 			return ResponseEntity.status(HttpStatus.OK).body(message);
-		}
-				
+		}			
 	}
 
 

@@ -101,4 +101,10 @@ public class AdminController {
 		return adminService.deletePartService(id);
 	}
 	
+	@GetMapping ("/orderList")
+	public ResponseEntity<?> orderList(){
+		System.out.println("In orderList method of " + getClass().getName());
+		return adminService.orderListService();
+	}
+	
 }

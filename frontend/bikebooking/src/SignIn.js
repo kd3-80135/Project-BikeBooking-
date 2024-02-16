@@ -36,7 +36,7 @@ const SignIn = () => {
         console.log(user);
       })
       .catch((error) => {
-        setErrorMessage(error.data);
+        setErrorMessage("Invalid User Name or Password");
       });
   };
 
@@ -68,8 +68,7 @@ const SignIn = () => {
       sessionStorage.setItem("role", user.role);
       console.log("in customer");
     } else if (status === 400) {
-      alert("Invalid Email or Password");
-      console.log(user);
+      setErrorMessage("Invalid User Name or Password")
     } else if (user && user.status === "error") {
       alert("Invalid Email or Password");
     }

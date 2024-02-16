@@ -1,5 +1,6 @@
 package com.bike.entities;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -41,6 +42,15 @@ public class Orders extends BaseEntity {
 	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
 	@Column(name = "cancelled_status", columnDefinition = "boolean default false")
 	private boolean cancelledStatus;
+	
+	@Column(name="placed_at")
+	private LocalDateTime placedAt;
+	
+	@Column(name = "delivered_at")
+	private LocalDateTime deliveredAt;
+	
+	@Column(name = "cancelled_at")
+	private LocalDateTime cancelledAt;
 	
 	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
 	@Column(name= "successful_status", columnDefinition = "boolean default false")
