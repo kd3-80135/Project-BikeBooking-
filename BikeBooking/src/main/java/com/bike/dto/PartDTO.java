@@ -24,6 +24,5 @@ public class PartDTO {
 
 	private int quantity;	
 	
-
-
+	private String imagePath;
 }

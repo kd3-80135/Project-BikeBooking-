@@ -16,11 +16,11 @@ import lombok.ToString;
 @ToString
 public class BikeDTO {
 	
-	private Long id;
+	
 	private String name;
 
 	
-	
+	private Long id;
 
 	
 	private double price;
@@ -40,6 +40,7 @@ public class BikeDTO {
 	
 	private String colour;
 	
+	private String imagePath;
 
 
 }

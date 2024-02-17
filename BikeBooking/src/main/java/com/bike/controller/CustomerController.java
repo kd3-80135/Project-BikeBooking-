@@ -30,50 +30,50 @@ public class CustomerController {
 	@Autowired
 	private CustomerService customerService; 
 	
-	@PostMapping("/addBikeToCart/{cartId}/{bikeId}")
-	public ResponseEntity<?> addBikeToCart(@PathVariable @Valid long cartId, @PathVariable @Valid long bikeId ){
+	@PostMapping("/addBikeToCart/{Id}/{bikeId}")
+	public ResponseEntity<?> addBikeToCart(@PathVariable @Valid long Id, @PathVariable @Valid long bikeId ){
 		System.out.println("In addBikeToCart method of " + getClass().getName());
-		return customerService.addBikeToCartService(cartId, bikeId);
+		return customerService.addBikeToCartService(Id, bikeId);
 	}
 	
-	@PostMapping("/addPartToCart/{cartId}/{partid}")
-	public ResponseEntity<?> addpartToCart (@PathVariable @Valid long cartId, @PathVariable @Valid long partId){
+	@PostMapping("/addPartToCart/{Id}/{partId}")
+	public ResponseEntity<?> addpartToCart (@PathVariable @Valid long Id, @PathVariable @Valid long partId){
 		System.out.println("In addPartToCart method of " + getClass().getName());
-		return customerService.addPartToCartService(cartId, partId);
+		return customerService.addPartToCartService(Id, partId);
 	}
 	
-	@PostMapping("/removeBikeFromCart/{cartId}/{bikeId}")
-	public ResponseEntity<?> removeBikeFromCart(@PathVariable @Valid long cartId, @PathVariable @Valid long bikeId ){
+	@PostMapping("/removeBikeFromCart/{cartId}")
+	public ResponseEntity<?> removeBikeFromCart(@PathVariable @Valid long cartId){
 		System.out.println("In removeBikeFromCart method of " + getClass().getName());
-		return customerService.removeBikeFromCartService(cartId, bikeId);
+		return customerService.removeBikeFromCartService(cartId);
 	}
 	
-	@PostMapping("/removeBikeFromCart/{cartId}/{partId}")
-	public ResponseEntity<?> removePartFromCart(@PathVariable @Valid long cartId, @PathVariable @Valid long partId ){
+	@PostMapping("/removePartFromCart/{cartId}")
+	public ResponseEntity<?> removePartFromCart(@PathVariable @Valid long cartId){
 		System.out.println("In removePartFromCart method of " + getClass().getName());
-		return customerService.removePartFromCartService(cartId, partId);
+		return customerService.removePartFromCartService(cartId);
 	}
 	
 	@PutMapping ("/increaseBikeCount/{cartId}")
-	public ResponseEntity<?> increaseBikeCount (@PathVariable @ Valid long cartId){
+	public ResponseEntity<?> increaseBikeCount (@PathVariable @Valid long cartId){
 		System.out.println("In increaseBikeCount method of " + getClass().getName());
 		return customerService.increaseBikeCountService(cartId);
 	}
 	
 	@PutMapping ("/increasePartCount/{cartId}")
-	public ResponseEntity<?> increasePartCount (@PathVariable @ Valid long cartId){
+	public ResponseEntity<?> increasePartCount (@PathVariable @Valid long cartId){
 		System.out.println("In increasePartCount method of " + getClass().getName());
 		return customerService.increasePartCountService(cartId);
 	}
 	
 	@PutMapping ("/decreaseBikeCount/{cartId}")
-	public ResponseEntity<?> decreaseBikeCount (@PathVariable @ Valid long cartId){
+	public ResponseEntity<?> decreaseBikeCount (@PathVariable @Valid long cartId){
 		System.out.println("In decreaseBikeCount method of " + getClass().getName());
 		return customerService.decreaseBikeCountService(cartId);
 	}
 		
 	@PutMapping ("/decreasePartCount/{cartId}")
-	public ResponseEntity<?> decreasePartCount (@PathVariable @ Valid long cartId){
+	public ResponseEntity<?> decreasePartCount (@PathVariable @Valid long cartId){
 		System.out.println("In decreasePartCount method of " + getClass().getName());
 		return customerService.decreasePartCountService(cartId);
 	}
@@ -102,5 +102,25 @@ public class CustomerController {
 		return customerService.getPartService(id);
 	}
 
+	@GetMapping ("/cartBikeList/{userId}")
+	public ResponseEntity<?> cartBikeList(@PathVariable @Valid Long userId){
+		System.out.println("In cartBikeList method of " + getClass().getName());
+		return customerService.cartBikeListService(userId);
+	}
+	
+	@GetMapping ("/cartPartList/{userId}")
+	public ResponseEntity<?> cartPartList (@PathVariable @Valid Long userId){
+		System.out.println("In cartPartList method of " + getClass().getName());
+		return customerService.cartPartListService(userId);
+	}
+	
+	@PostMapping ("/order/{userId}")
+	public ResponseEntity<?> order(@PathVariable @Valid Long userId){
+		System.out.println("In Order method of " + getClass().getName());
+		return customerService.order(userId);
+	}
+	
+	
+	
 	
 }

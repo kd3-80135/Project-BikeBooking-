@@ -9,6 +9,7 @@ import com.bike.entities.TwoWheelers;
 
 public interface TwoWheelerDao extends JpaRepository<TwoWheelers, Long>{
 	
+	
 	@Query("select t from TwoWheelers t where deleteStatus = 0")
 	List<TwoWheelers> getAllBikes ();
 	
@@ -18,3 +19,5 @@ public interface TwoWheelerDao extends JpaRepository<TwoWheelers, Long>{
 	@Query("select t from TwoWheelers t where deleteStatus = 0 and approveStatus = 1")
 	List<TwoWheelers> findBikesAllForUsers ();
 }
+
+

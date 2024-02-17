@@ -2,14 +2,15 @@ import React from "react";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import "./styles/header.css"
 
 function CustomerPartList() {
     const [parts, setPartList] = useState([]);
     const [message, setMessage] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
-    const [partsPerPage] = useState(2);
+    const [partsPerPage] = useState(3);
+    
 
-    var id = sessionStorage.getItem("userId");
 
     function getData() {
 

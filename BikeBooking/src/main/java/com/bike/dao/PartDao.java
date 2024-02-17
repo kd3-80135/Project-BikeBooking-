@@ -6,12 +6,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import com.bike.entities.Parts;
-import com.bike.entities.TwoWheelers;
 
 public interface PartDao extends JpaRepository<Parts, Long> {
 	
 	@Query("select p from Parts p where deleteStatus = 0")
-	List<Parts> getAllParts ();
+	List<Parts> getAllParts();
 	
 	@Query("select p from Parts p where p.name =: partname and deleteStatus = 0")
 	Parts findPartName(String partname);

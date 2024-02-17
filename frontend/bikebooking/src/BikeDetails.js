@@ -61,7 +61,7 @@ function BikeDetails(props) {
                     </div>
                 </div>
                 <div>
-                    <button onClick={addToCart}>
+                    <button  className= "btn btn-success" onClick={addToCart}>
                         <span id="submit.add-to-cart-announce" className="a-button-text" aria-hidden="true">Add to Cart</span>
                     </button>
                 </div>

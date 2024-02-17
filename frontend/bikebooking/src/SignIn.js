@@ -1,190 +1,144 @@
-import React, { useEffect, useState } from 'react'
-import bike from './images/image.jpg'
-import { Redirect, useHistory } from 'react-router-dom/cjs/react-router-dom.min';
-
-import  axios  from 'axios';
+import React, { useEffect, useState } from 'react';
+import bike from './images/Moto.jpg';
+import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 
 const SignIn = () => {
-  const[email,setEmail]=useState("");
-  const[password,setPassword]=useState("");
-  const[user ,setUser] = useState([]);
-  const[status,setStatus] = useState([]);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [user, setUser] = useState([]);
+  const [status, setStatus] = useState([]);
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
- const history=useHistory();
+  const history = useHistory();
 
-  
-
-
- const handleSubmit = (e) => {
-  e.preventDefault();
-  if (!email) {
-    setEmailError(true);
-    setErrorMessage("Please enter your email");
-    return;
-  }
-  if (!password) {
-    setPasswordError(true);
-    setErrorMessage("Please enter your password");
-    return;
-  }
-  axios.post("http://localhost:8080/users/signin", {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!email) {
+      setEmailError(true);
+      setErrorMessage("Please enter your email");
+      return;
+    }
+    if (!password) {
+      setPasswordError(true);
+      setErrorMessage("Please enter your password");
+      return;
+    }
+    axios.post("http://localhost:8080/users/signin", {
       email,
       password
     })
-    .then((response) => {
-      setUser(response.data);
-      setStatus(response.status);
-      console.log(response)
-      console.log(user)
-      
-      
-    })
-    .catch((error) => {
-      // handle sign-in error
-      setErrorMessage(error.data);
-    });
-};
-console.log(user)
-//debugger;
+      .then((response) => {
+        setUser(response.data);
+        setStatus(response.status);
+        console.log(response);
+        console.log(user);
+      })
+      .catch((error) => {
+        setErrorMessage(error.data);
+      });
+  };
+
   useEffect(() => {
-   // history.push("/user"); 
-  if ( status === 202 &&
-  user.role === "ADMIN_ROLE") {
-history.push("/admin");
-window.location = window.location.href;
-sessionStorage.setItem("userName",user.firstName)
-sessionStorage.setItem("userId",user.id)
-sessionStorage.setItem("isLoggedin","true")
-sessionStorage.setItem("role", user.role);
-console.log("in admin")     
-}
-
-else if (status === 202 &&
-user.role === "DEALER_ROLE") {
- history.push("/dealer");
- window.location = window.location.href;
- sessionStorage.setItem("userName",user.firstName)
- sessionStorage.setItem("userId",user.id)
-sessionStorage.setItem("isLoggedin","true")
-sessionStorage.setItem("role", user.role)  
- console.log("in dealer") 
- }
-
-else if ( status === 202 &&
-       user.role === "CUSTOMER_ROLE"){
-history.push("/user");
-window.location = window.location.href;
-sessionStorage.setItem("userName",user.firstName)
-sessionStorage.setItem("userId",user.id)
-sessionStorage.setItem("isLoggedin","true")
-sessionStorage.setItem("role", user.role) 
-console.log("in customer")       
-}
-
-else if(status === 400){
-  alert("Invalid Email or Password");
-  console.log(user);
-}
-
-else if (user && user.status === "error") {
-alert("Invalid Email or Password");
-};
+    if (status === 202 && user.role === "ADMIN_ROLE") {
+      history.push("/admin");
+      window.location = window.location.href;
+      sessionStorage.setItem("userName", user.firstName);
+      sessionStorage.setItem("userId", user.id);
+      sessionStorage.setItem("isLoggedin", "true");
+      sessionStorage.setItem("role", user.role);
+      console.log("in admin");
+    } 
+    else if (status === 202 && user.role === "DEALER_ROLE") {
+      history.push("/dealer");
+      window.location = window.location.href;
+      sessionStorage.setItem("userName", user.firstName);
+      sessionStorage.setItem("userId", user.id);
+      sessionStorage.setItem("isLoggedin", "true");
+      sessionStorage.setItem("role", user.role);
+      console.log("in dealer");
+    } 
+    else if (status === 202 && user.role === "CUSTOMER_ROLE") {
+      history.push("/user");
+      window.location = window.location.href;
+      sessionStorage.setItem("userName", user.firstName);
+      sessionStorage.setItem("userId", user.id);
+      sessionStorage.setItem("isLoggedin", "true");
+      sessionStorage.setItem("role", user.role);
+      console.log("in customer");
+    } else if (status === 400) {
+      alert("Invalid Email or Password");
+      console.log(user);
+    } else if (user && user.status === "error") {
+      alert("Invalid Email or Password");
+    }
   }, [user]);
 
- 
-
-  // console.log(user.data.id);
-
   return (
-    <div>
-    <section className="vh-100">
-<div className="container-fluid  ">
-  <div className="row">
-    <div className="col-sm-6 text-black">
-      <div className="px-5 ms-xl-4">
-        <i
-          className="fas fa-crow fa-2x me-3 pt-5 mt-xl-4"
-          style={{ color: "#709085" }}
-        />
-      </div>
-      <div className="d-flex align-items-center h-custom-2 px-5 ms-xl-4  pt-5 pt-xl-0 mt-xl-n5">
-        <form style={{ width: "23rem" }}>
-          <h3 className="fw-normal mb-3 pb-3" style={{ letterSpacing: 1 }}>
-            Log in
-          </h3>
-
-          <div className="form-outline mb-4">
+    <div className="w-100 vh-100 d-flex justify-content-center align-items-center"
+      style={{
+        backgroundImage: `url(${bike})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+      }}
+    >
+      <div className="bg-white p-5 rounded shadow-lg" style={{ width: "400px" }}>
+        <h2 className="text-center mb-4">Sign In to BS Account</h2>
+        <form>
+          <div className="mb-3">
+            <label htmlFor="email" className="form-label">Email address</label>
             <input
-            onChange =  { (e) => {
-              setEmail(e.target.value);
-              setEmailError(false);
-              setErrorMessage("");
-              
-            }}
               type="email"
-              id="form2Example18"
-              className="form-control form-control-lg"
+              id="email"
+              className={`form-control ${emailError ? 'is-invalid' : ''}`}
+              value={email}
+              onChange={(e) => {
+                setEmail(e.target.value);
+                setEmailError(false);
+                setErrorMessage("");
+              }}
               required
-
             />
-            {emailError && <div className="error-message text-danger">{errorMessage}</div>}
-            <label className="form-label" htmlFor="form2Example18">
-              Email address
-            </label>
+            {emailError && <div className="invalid-feedback">{errorMessage}</div>}
           </div>
-          <div className="form-outline mb-4">
+
+          <div className="mb-3">
+            <label htmlFor="password" className="form-label">Password</label>
             <input
-               onChange={(e) => {
+              type="password"
+              id="password"
+              className={`form-control ${passwordError ? 'is-invalid' : ''}`}
+              value={password}
+              onChange={(e) => {
                 setPassword(e.target.value);
                 setPasswordError(false);
                 setErrorMessage("");
               }}
-              type="password"
-              id="form2Example28"
-              className="form-control form-control-lg"
               required
             />
-            {passwordError && <div className="error-message text-danger">{errorMessage}</div>}
-            <label className="form-label" htmlFor="form2Example28">
-              Password
-            </label>
+            {passwordError && <div className="invalid-feedback">{errorMessage}</div>}
           </div>
-          <div className="text-danger">
+
+          <div className="mb-3 text-danger">
             {errorMessage}
           </div>
-          <div className="form-group my-3">
-            <button onClick={handleSubmit} className="btn btn-info btn-lg btn-block" value="submit">
-            
-              Login 
-            </button>
+
+          <div className="d-grid gap-2">
+            <button onClick={handleSubmit} className="btn btn-primary" type="button">Sign In</button>
           </div>
-          <p className="small mb-5 pb-lg-2">
-            <a className="text-muted" href="/">
-              Forgot password?
-            </a>
-          </p>
-          <p>
-            Don't have an account?{" "}
-            <a href="/setrole" className="link-info">
-              Register here
-            </a>
-          </p>
+
+          <div className="mt-3 text-center">
+            <a className="text-muted" href="/">Forgot password?</a>
+          </div>
+
+          <div className="mt-4 text-center">
+            <p>Don't have an account? <a href="/setrole" className="link-info">Register here</a></p>
+          </div>
         </form>
       </div>
     </div>
-    <div className="col-sm-6 px-0 d-none d-sm-block">
-      <img
-     src={bike} 
-       alt="Login image" className="w-50 vh-50 loginimg " style={{objectFit: 'cover', objectPosition: 'left'}} />
-    </div>
-  </div>
-</div>
-</section>
-<br /><br /> <br /><br /> <br /><br /> <br /><br />
-  </div>
-  )
-}
+  );
+};
 
 export default SignIn;

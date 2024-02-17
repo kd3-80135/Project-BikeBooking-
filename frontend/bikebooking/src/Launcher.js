@@ -24,10 +24,16 @@ import BikeDetails from './BikeDetails.js';
 import CustomerPartList from './CustomerPartList.js';
 import User from './User.js';
 import PartDetails from './PartDetails.js';
+import Cart from './Cart.js';
+import Sidebar from './components/SideBar/index.js';
+import Background from './images/gifbike2.gif'
 
 function Launcher(){
     return (
-        <div className='container'>
+        <div >
+            
+            <div className='container'>
+            <Sidebar />
             <Header />
             
             <hr></hr>
@@ -35,7 +41,7 @@ function Launcher(){
                 <Route exact path="/signup" component={SignUp}/>
                 <Route exact path="/" component={Home}/>
                 <Route path="/admin" exact component={Admin} />
-                <Route path="/dealer" exact component={Dealer} />
+                <Route path="/dealer" exact component={Dealer} />   
                 <Route path="/user" exact component={User} />
                 <Route exact path="/signin" component={SignIn}/>
                 <Route exact path="/setrole" component={SetRole}/>
@@ -54,8 +60,12 @@ function Launcher(){
                 <Route path="/bikeDetails" component={BikeDetails} />
                 <Route exact path="/partDetails" component={PartDetails} />
                 <Route exact path="/customerpartlist" component={CustomerPartList} />
+                <Route exact path="/cart" component={Cart} />
+
             </Switch>
             <Footer />
+            </div>
+            
         </div>
     );
 }

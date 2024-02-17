@@ -1,6 +1,6 @@
 package com.bike.entities;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -8,9 +8,9 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.MapsId;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -30,15 +30,18 @@ import lombok.ToString;
 @ToString(exclude = {"bikeSet", "bikePartSet"})
 public class Cart extends BaseEntity{
 	
-	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "bikeCartSet")
+	@ManyToMany
+	@JoinTable (name = "cart_bike_column", joinColumns = @JoinColumn(name="cart_id"),
+	inverseJoinColumns =@JoinColumn(name="bike_id"))
 	private Set<TwoWheelers> bikeSet = new HashSet<>();
 	
-	@ManyToMany(cascade = CascadeType.ALL, mappedBy = "partCartSet")
+	@ManyToMany
+	@JoinTable (name = "cart_part_column", joinColumns = @JoinColumn(name="cart_id"),
+	inverseJoinColumns =@JoinColumn(name="part_id") )
 	private Set<Parts> bikePartSet = new HashSet<>();
 	
-	@OneToOne
-	@JoinColumn(name = "user_cart_id", nullable = false)
-	@MapsId
+	@ManyToOne
+	@JoinColumn(name = "customer_id", nullable = false)
 	private User thisCartCustomer;
 	
 	@Column(name = "bike_quantity", nullable = false, columnDefinition = "integer default 0")
@@ -48,10 +51,10 @@ public class Cart extends BaseEntity{
 	private int partQuantity;
 	
 	@Column(name = "created_on", nullable = false)
-	private LocalDate createdOn;
+	private LocalDateTime createdOn;
 	
 	@Column(name = "last_updated_on", nullable = false)
-	private LocalDate lastUpdatedOn;	
+	private LocalDateTime lastUpdatedOn;	
 	
 	@Column(name = "extra_string_column_one", length = 20, columnDefinition = "varchar(100) default 'bike1'")
 	private String extraStringColumnOne;
@@ -66,7 +69,7 @@ public class Cart extends BaseEntity{
 	@Column(name = "extra_boolean_column", length = 5, columnDefinition = "boolean default false")
 	private boolean extraBooleanColumn;
 
-	public Cart(User thisCartCustomer, int bikeQuantity, int partQuantity, LocalDate createdOn, LocalDate lastUpdatedOn,
+	public Cart(User thisCartCustomer, int bikeQuantity, int partQuantity, LocalDateTime createdOn, LocalDateTime lastUpdatedOn,
 			String extraStringColumnOne, String extraStringColumnTwo, Long extraNumberColumn,
 			boolean extraBooleanColumn) {
 		this.thisCartCustomer = thisCartCustomer;
@@ -79,5 +82,7 @@ public class Cart extends BaseEntity{
 		this.extraNumberColumn = extraNumberColumn;
 		this.extraBooleanColumn = extraBooleanColumn;
 	}
+	
+	
 
 }

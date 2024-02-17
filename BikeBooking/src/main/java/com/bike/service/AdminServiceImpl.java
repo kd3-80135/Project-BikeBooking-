@@ -10,12 +10,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.bike.dao.OrderDao;
 import com.bike.dao.PartDao;
 import com.bike.dao.TwoWheelerDao;
 import com.bike.dao.UserDao;
+import com.bike.dto.OrderDTO;
 import com.bike.dto.ResponseAdminBikeDTO;
 import com.bike.dto.ResponseAdminPartDTO;
 import com.bike.dto.ResponseUserDTO;
+import com.bike.entities.Orders;
 import com.bike.entities.Parts;
 import com.bike.entities.TwoWheelers;
 import com.bike.entities.User;
@@ -41,6 +44,9 @@ public class AdminServiceImpl implements AdminService{
 	@Autowired
 	private PartDao partDao;
 	
+	@Autowired
+	private OrderDao orderDao;
+	
 	@Override
 	public ResponseEntity<?> getUserListService() {
 		List<User> userList = userDao.getAllUsers();
@@ -49,7 +55,7 @@ public class AdminServiceImpl implements AdminService{
 		}
 		else {
 			List<ResponseUserDTO> userDTOList = userList.stream()
-								.map(u -> new ResponseUserDTO(u.getId(), u.getFirstName(), u.getLastName(), u.getEmail(), u.getPassword(), u.getMobile(), u.getRole(),u.isBlockStatus(),u.isDeleteStatus()))
+								.map(u -> new ResponseUserDTO(u.getId(), u.getFirstName(), u.getLastName(), u.getEmail(), u.getPassword(), u.getMobile(), u.getRole(),u.isDeleteStatus(),u.isBlockStatus()))
 								.collect(Collectors.toList());
 			return ResponseEntity.status(HttpStatus.ACCEPTED).body(userDTOList);
 		}
@@ -214,17 +220,23 @@ public class AdminServiceImpl implements AdminService{
 			throw new ResourceNotFoundException("Invalid Credentials. No such part exists.");
 		}
 	}
-	
-	
-	
-	
-	
+
+	@Override
+	public ResponseEntity<?> orderListService() {
+		List<OrderDTO> orderList = orderDao.getOrderList();
+		if (orderList.isEmpty()) {
+			String message = "No orders present at the moment.";
+			return ResponseEntity.status(HttpStatus.OK).body(message);
+		}
+		else {
+			return ResponseEntity.status(HttpStatus.OK).body(orderList);
+		}
+	}
 	
 	
 	
 	
 
-	
 	
 	
 }
