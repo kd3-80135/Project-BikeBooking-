@@ -3,8 +3,8 @@ import { Link, useHistory } from 'react-router-dom';
 import { Navbar, Nav, Container } from 'react-bootstrap';
 import { useState } from 'react';
 import Cart from './images/cart.jpg';
-import Dropdown from './DropDown';
-import bike from './images/logo.png';
+import DropDown from './DropDown';
+import bike from './images/images.png';
 import './styles/header.css'
 
 
@@ -109,7 +109,7 @@ const Header = () => {
                 <>
                   <li className='nav-item'>
                     {role === 'CUSTOMER_ROLE' || role === 'DEALER_ROLE' ? (
-                      <Dropdown />
+                      <DropDown />
                     ) : (
                       <Link to='/myprofile'>
                         <span className='nav-link'>{userName}</span>

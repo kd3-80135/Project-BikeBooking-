@@ -75,9 +75,9 @@ function CustomerPartList() {
                 ))}
             </ul>
 
-            <div className="alert alert-success">
+            {/* <div className="alert alert-success">
                 {message}
-            </div>
+            </div> */}
         </div>
        
     );

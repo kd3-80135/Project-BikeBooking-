@@ -20,10 +20,9 @@ function Admin() {
 
             <div className="row">
                 <div className="col-md-6">
-                    {/* <img  alt="Login image" className="w-100 vh-50 loginimg" style={{ objectPosition: 'right' }} /> */}
+                    <img src={Bike} alt="Login image" className="w-100 vh-50 loginimg" style={{ objectPosition: 'right' }} />
                 </div>
                 
-
             </div>
         </div>
     );

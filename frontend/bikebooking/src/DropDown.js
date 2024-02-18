@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function Dropdown() {
+const DropDown = () => {
   const [isDropdownOpen, setDropdownOpen] = useState(false);
 
   const handleDropdownToggle = (e) => {
@@ -37,4 +37,4 @@ function Dropdown() {
   );
 }
 
-export default Dropdown;
+export default DropDown;

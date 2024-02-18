@@ -1,18 +1,16 @@
 import React from "react";
-import bike from './images/index.jpg';
+import bike from './images/image.jpg';
 import './styles/cart.css'
-import Gif from './images/gifbike2.gif'
 
 
 
 function Home() {
     return (
-        <div className="Landing2_Landin"
-       >
+        <div className="Landing2_Landin">
             <img
                 src={bike}
                 alt="Login image"
-                className="w-100 vh-70 loginimg styled-image"
+                className="w-100 vh-70 login img styled-image"
                 style={{ objectFit: 'cover', objectPosition: '50% 50%' }}
             />
             <div className="overlay"></div>

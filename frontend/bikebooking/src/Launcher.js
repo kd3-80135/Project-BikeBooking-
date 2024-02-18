@@ -25,15 +25,10 @@ import CustomerPartList from './CustomerPartList.js';
 import User from './User.js';
 import PartDetails from './PartDetails.js';
 import Cart from './Cart.js';
-import Sidebar from './components/SideBar/index.js';
-import Background from './images/gifbike2.gif'
 
 function Launcher(){
     return (
-        <div >
-            
-            <div className='container'>
-            <Sidebar />
+        <div className='container'>
             <Header />
             
             <hr></hr>
@@ -64,8 +59,6 @@ function Launcher(){
 
             </Switch>
             <Footer />
-            </div>
-            
         </div>
     );
 }

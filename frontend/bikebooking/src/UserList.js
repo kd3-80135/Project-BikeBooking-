@@ -92,7 +92,7 @@ function Userlist() {
                   {/* <Link to='/blockuser'>
                     <button className='btn btn-primary' >BLOCK</button>
                   </Link> */}
-                  { user.blockStatus == 0 && (
+                  { user.blockStatus == false && (
                   
                     
                       <button className="btn btn-info"
@@ -101,7 +101,7 @@ function Userlist() {
                       }}>block</button>
                     
                   )}
-                  { user.blockStatus == 1 && (
+                  { user.blockStatus == true && (
                   
                     
                       <button className="btn btn-info"
