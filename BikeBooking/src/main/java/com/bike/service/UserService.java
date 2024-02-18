@@ -1,6 +1,5 @@
 package com.bike.service;
 
-
 import org.springframework.http.ResponseEntity;
 
 import com.bike.dto.EditAdressDTO;
@@ -20,5 +19,11 @@ public interface UserService {
 	EditAdressDTO EditAddressService(Long id);
 
 	ResponseEntity<?> updateAddressService(Long id, EditAdressDTO addrDTO);
+
+	ResponseEntity<String> forgotPasswordService(String email);
+
+	ResponseEntity<String> verifyOTPService(String otp, String email);
+
+	ResponseEntity<String> resetPasswordService(SignInDTO signInDTO);
 	
 }

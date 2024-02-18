@@ -15,6 +15,7 @@ import com.bike.dao.UserDao;
 import com.bike.dto.BikeDTO;
 import com.bike.dto.CartBikeDTO;
 import com.bike.dto.CartPartDTO;
+import com.bike.dto.OrderDTO;
 import com.bike.dto.PartDTO;
 import com.bike.entities.Cart;
 import com.bike.entities.Orders;
@@ -243,7 +244,7 @@ public class CustomerServiceImpl implements CustomerService {
 		User user = userDao.findById(userid).get();
 		List<CartBikeDTO> bikeList = cartDao.bikeList(user);
 		if (bikeList.isEmpty()) {
-			throw new ResourceNotFoundException("No bikes available in cart.");
+			throw new ResourceNotFoundException("No Bikes present at the moment.");
 		}
 		else {
 			List<CartBikeDTO> bikeDTOList = bikeList.stream()
@@ -258,7 +259,7 @@ public class CustomerServiceImpl implements CustomerService {
 		User user = userDao.findById(userid).get();
 		List<CartPartDTO> partList = cartDao.partList(user);
 		if (partList.isEmpty()) {
-			throw new ResourceNotFoundException("No parts available in cart");
+			throw new ResourceNotFoundException("No Parts present at the moment.");
 		}
 		else {
 			List<CartPartDTO> partDTOList = partList.stream()
@@ -273,39 +274,65 @@ public class CustomerServiceImpl implements CustomerService {
 		User user =  userDao.findById(userId).get();
 		List<CartBikeDTO> bikeList = cartDao.bikeList(user);
 		List<CartPartDTO> partList = cartDao.partList(user);
-		Orders order = new Orders(null, new HashSet<TwoWheelers>(), new HashSet<Parts>(), false, LocalDateTime.now(), null, null, false, null, null, null, false);
+		Orders order = new Orders(user, new HashSet<TwoWheelers>(), new HashSet<Parts>(), false, null, null, null, false, null, null, null, false);
 		if (partList.isEmpty() && bikeList.isEmpty()) {
 			throw new ResourceNotFoundException("No bikes and parts available in cart");
 		}
 		else {
 			if (bikeList.isEmpty()) {
 				for (CartPartDTO cartPartDTO : partList) {
-					mapper.map(cartPartDTO, Parts.class).addOrders(order);
+					Parts part = partDao.findPartName(cartPartDTO.getName());
+					part.addOrders(order);
+					part.setQuantity(part.getQuantity() - cartPartDTO.getPartQuantity());
 					removePartFromCartService(cartPartDTO.getCartId());
 				}
+				order.setPlacedAt(LocalDateTime.now());
 			}
 			else if (partList.isEmpty()){
 				for (CartBikeDTO cartBikeDTO : bikeList) {
-					mapper.map(cartBikeDTO, TwoWheelers.class).addOrders(order);
+					TwoWheelers bike = twoWheelerDao.findBikeName(cartBikeDTO.getName());
+					bike.addOrders(order);
+					bike.setQuantity(bike.getQuantity() - cartBikeDTO.getBikeQuantity());
 					removeBikeFromCartService(cartBikeDTO.getCartId());
 				}
+				order.setPlacedAt(LocalDateTime.now());
 			}
 			else{
 				for (CartPartDTO cartPartDTO : partList) {
-					mapper.map(cartPartDTO, Parts.class).addOrders(order);
+					Parts part = partDao.findPartName(cartPartDTO.getName());
+					part.addOrders(order);
+					part.setQuantity(part.getQuantity() - cartPartDTO.getPartQuantity());
 					removePartFromCartService(cartPartDTO.getCartId());
 				}
 				for (CartBikeDTO cartBikeDTO : bikeList) {
-					mapper.map(cartBikeDTO, TwoWheelers.class).addOrders(order);
+					TwoWheelers bike = twoWheelerDao.findBikeName(cartBikeDTO.getName());
+					bike.addOrders(order);
+					bike.setQuantity(bike.getQuantity() - cartBikeDTO.getBikeQuantity());
 					removeBikeFromCartService(cartBikeDTO.getCartId());
 				}
+				order.setPlacedAt(LocalDateTime.now());
 			}
-			order.setThisCustomer(user);
-			orderDao.save(order);
 			String message = "Order Placed Successfully.";
 			return ResponseEntity.status(HttpStatus.OK).body(message);
 		}			
 	}
 
-
+	@Override
+	public ResponseEntity<?> myOrders(Long userId) {
+		User user = userDao.findById(userId).get();
+		List<OrderDTO> orderList = orderDao.findByThisCustomer(user);
+		if (orderList.isEmpty()) {
+			String message = "No orders present at the moment.";
+			return ResponseEntity.status(HttpStatus.OK).body(message);
+		}
+		else {
+			return ResponseEntity.status(HttpStatus.OK).body(orderList);
+		}
+	}
+	
+	
+	
+	
+	
+	
 }

@@ -15,9 +15,9 @@ function Home() {
             />
             <div className="overlay"></div>
             <div className="content">
-                <h1 className="text-white">Welcome to Our Website</h1>
+                <h1 className="text-white">Welcome to BIKE SPOT</h1>
                 <p className="text-white">Explore the world of bikes with us!</p>
-                <button className="btn btn-primary">Get Started</button>
+                
             </div>
         </div>
     );

@@ -1,14 +1,19 @@
 package com.bike.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Random;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import com.bike.dao.AddressDao;
@@ -32,10 +37,16 @@ public class UserServiceImpl implements UserService {
 	private UserDao userDao;
 	
 	@Autowired
+	private JavaMailSender javaMailSender;
+	
+	@Autowired
 	private ModelMapper mapper;
 	
 	@Autowired
 	private AddressDao addressDao;
+	
+	@Value("$spring.mail.username")
+	private String senderMail;
 	
 	@Override
 	public ResponseEntity<?> SignInUser(SignInDTO signin) {
@@ -141,6 +152,67 @@ public class UserServiceImpl implements UserService {
 		else {
 			throw new ResourceNotFoundException("Invalid Id!! No such user exists.");
 		}
+	}
+
+	@Override
+	public ResponseEntity<String> forgotPasswordService(String email) {
+		int leftLimit = 48;
+	    int rightLimit = 122;
+	    int targetStringLength = 10;
+	    Random random = new Random();
+	    String otp = random.ints(leftLimit, rightLimit + 1)
+	      .filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97))
+	      .limit(targetStringLength)
+	      .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
+	      .toString();
+	     
+	    SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
+	    simpleMailMessage.setFrom(senderMail);
+	    simpleMailMessage.setSubject("OTP for Password Reset");
+	    String message = "Your One Time Password is " + otp;
+	    simpleMailMessage.setText(message);
+	    simpleMailMessage.setTo(email);
+	    
+		javaMailSender.send(simpleMailMessage);
+		userDao.findByEmail(email).setExtraStringColumnOne(otp);
+		String message2 = "OTP sent and also saved in Database.";
+		return ResponseEntity.status(HttpStatus.ACCEPTED).body(message2);
+	}
+
+	@Override
+	public ResponseEntity<String> verifyOTPService(String otp, String email) {
+		User user = userDao.findByEmail(email);
+		if (otp.equals(user.getExtraStringColumnOne())){
+			String message = "String matched successfully.";
+			return ResponseEntity.status(HttpStatus.OK).body(message);
+		}
+		else {
+			throw new ResourceNotFoundException("No such user exists (otp validation failed)");
+		}
+	}
+
+	@Override
+	public ResponseEntity<String> resetPasswordService(SignInDTO signInDTO) {
+		User user = userDao.findByEmail(signInDTO.getEmail());
+		if (user != null) {
+			user.setPassword(signInDTO.getPassword());
+			
+			SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
+		    simpleMailMessage.setFrom(senderMail);
+		    simpleMailMessage.setSubject("Account Security");
+		    String message = "Your Password has been reset successfully. This was done at " + LocalDateTime.now() + ". PLEASE INFORM US IF THIS WAS NOT YOU!";
+		    simpleMailMessage.setText(message);
+		    simpleMailMessage.setTo(signInDTO.getEmail());
+		    
+			javaMailSender.send(simpleMailMessage);
+			String message2 = "Password reset successfully.";
+			return ResponseEntity.status(HttpStatus.OK).body(message2);
+		}
+		else {
+			throw new ResourceNotFoundException("No such user exists.");
+		}
+				
+				
 	}
 	
 

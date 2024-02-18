@@ -1,6 +1,7 @@
 package com.bike.entities;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -89,6 +90,33 @@ public class Parts extends BaseEntity{
 	public void removeCart (Cart cart) {
 		partCartSet.remove(cart);
 		cart.getBikePartSet().remove(this);
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + Objects.hash(approveStatus, deleteStatus, description, extraBooleanColumn,
+				extraNumberColumn, extraStringColumnOne, extraStringColumnTwo, imagePath, name, price, quantity);
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Parts other = (Parts) obj;
+		return approveStatus == other.approveStatus && deleteStatus == other.deleteStatus
+				&& Objects.equals(description, other.description) && extraBooleanColumn == other.extraBooleanColumn
+				&& Objects.equals(extraNumberColumn, other.extraNumberColumn)
+				&& Objects.equals(extraStringColumnOne, other.extraStringColumnOne)
+				&& Objects.equals(extraStringColumnTwo, other.extraStringColumnTwo)
+				&& Objects.equals(imagePath, other.imagePath) && Objects.equals(name, other.name)
+				&& Double.doubleToLongBits(price) == Double.doubleToLongBits(other.price) && quantity == other.quantity;
 	}
 	
 	

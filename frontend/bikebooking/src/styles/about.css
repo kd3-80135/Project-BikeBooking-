@@ -1,0 +1,41 @@
+.container-fluid {
+    padding: 0;
+  }
+  
+  .bg-light {
+    background-color: #f8f9fa;
+  }
+  
+  .p-5 {
+    padding: 3rem;
+  }
+  
+  .text-uppercase {
+    text-transform: uppercase;
+  }
+  
+  .text-secondary {
+    color: #6c757d;
+  }
+  
+  .lead {
+    font-size: 1.2rem;
+    line-height: 1.8;
+  }
+  
+  .mb-4 {
+    margin-bottom: 1.5rem;
+  }
+  
+  .mb-5 {
+    margin-bottom: 3rem;
+  }
+  
+  .list-unstyled {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .img-fluid {
+    max-width: 100%;
+  }

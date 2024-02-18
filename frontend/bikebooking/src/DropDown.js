@@ -30,7 +30,7 @@ const DropDown = () => {
         >
           <p><a href='./edit'>Profile</a></p>
           <p><a href='./editAddress'>My Address</a></p>
-          <p className="logout"><a href='/' onClick={(e) => { e.preventDefault(); window.location.href = '/'; }}>Logout</a></p>
+          <p><a href='/orders' >Orders</a></p>
         </div>
       )}
     </div>

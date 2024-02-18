@@ -25,6 +25,11 @@ import CustomerPartList from './CustomerPartList.js';
 import User from './User.js';
 import PartDetails from './PartDetails.js';
 import Cart from './Cart.js';
+import AdminOrder from './AdminOrder.js';
+import AboutUs from './AboutUs.js';
+import ContactUs from './ContactUs.js';
+import CustomerOrders from './CustomerOrder.js';
+import ImageUpload from './ImageUpload.js';
 
 function Launcher(){
     return (
@@ -56,6 +61,11 @@ function Launcher(){
                 <Route exact path="/partDetails" component={PartDetails} />
                 <Route exact path="/customerpartlist" component={CustomerPartList} />
                 <Route exact path="/cart" component={Cart} />
+                <Route exact path="/adminorder" component={AdminOrder} />
+                <Route exact path="/about" component={AboutUs} />
+                <Route exact path="/contact" component={ContactUs} />
+                <Route exact path="/orders" component={CustomerOrders} />
+                <Route exact path="/imageupload" component={ImageUpload} />
 
             </Switch>
             <Footer />

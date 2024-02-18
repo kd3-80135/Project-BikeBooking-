@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router-dom"; 
+
 
 function CustomerBikeList() {
     const [bikes, setBikesList] = useState([]);
@@ -17,7 +18,10 @@ function CustomerBikeList() {
                 console.log(err);
             });
     }
-
+    const getImageSource = (bikeId) => {
+        // Assuming images are named like "bike1.jpg", "bike2.jpg", etc.
+        return require(`./${bikeId}.jpg`).default;
+      };
    
 
     useEffect(() => {
@@ -37,12 +41,12 @@ function CustomerBikeList() {
 
             <div className="row">
                 {currentBikes.map((bike) => (
-                    <div key={bike.id} className="col-md-4 mb-4">
+                    <div key={bike.id} className="col-md-6 mb-6">
                         <div className="card">
                             <Link to={`/bikeDetails?bikeId=${bike.id}`} className="text-decoration-none text-black">
                                 <div className="row">
                                     <div className="col-md-6">
-                                        <img src={bike.imageURL} className="card-img-top" alt={bike.name} />
+                                        <img src={`./${bike.name}.jpg`} className="card-img-top" alt={bike.name} />
                                     </div>
                                     <div className="col-md-6">
                                         <div className="card-body">

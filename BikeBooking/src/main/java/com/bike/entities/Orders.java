@@ -2,6 +2,7 @@ package com.bike.entities;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -35,13 +36,42 @@ public class Orders extends BaseEntity {
 	private User thisCustomer;
 	
 	@ManyToMany
-	@JoinTable (name = "order_bike_column", joinColumns = @JoinColumn(name="bike_id"),
-			inverseJoinColumns =@JoinColumn(name="order_id"))
+	@JoinTable (name = "order_bike_column", joinColumns = @JoinColumn(name="order_id"),
+			inverseJoinColumns =@JoinColumn(name="bike_id"))
 	private Set<TwoWheelers> bikeSet = new HashSet<>();
 	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + Objects.hash(cancelledAt, cancelledStatus, deliveredAt, extraBooleanColumn,
+				extraNumberColumn, extraStringColumnOne, extraStringColumnTwo, placedAt, successfullStatus);
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!super.equals(obj))
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Orders other = (Orders) obj;
+		return Objects.equals(cancelledAt, other.cancelledAt) 
+				&& cancelledStatus == other.cancelledStatus
+				&& Objects.equals(deliveredAt, other.deliveredAt) 
+				&& extraBooleanColumn == other.extraBooleanColumn
+				&& Objects.equals(extraNumberColumn, other.extraNumberColumn)
+				&& Objects.equals(extraStringColumnOne, other.extraStringColumnOne)
+				&& Objects.equals(extraStringColumnTwo, other.extraStringColumnTwo)
+				&& Objects.equals(placedAt, other.placedAt) 
+				&& successfullStatus == other.successfullStatus;
+	}
+
 	@ManyToMany
-	@JoinTable (name = "order_part_column", joinColumns = @JoinColumn(name="part_id"),
-			inverseJoinColumns =@JoinColumn(name="order_id") )
+	@JoinTable (name = "order_part_column", joinColumns = @JoinColumn(name="order_id"),
+			inverseJoinColumns =@JoinColumn(name="part_id"))
 	private Set<Parts> bikePartSet = new HashSet<>();
 	
 	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
@@ -73,8 +103,6 @@ public class Orders extends BaseEntity {
 	@JsonInclude(JsonInclude.Include.NON_DEFAULT)
 	@Column(name = "extra_boolean_column", length = 5, columnDefinition = "boolean default false")
 	private boolean extraBooleanColumn;
-	
-	
 	
 	
 	

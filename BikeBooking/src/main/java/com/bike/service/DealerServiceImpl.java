@@ -1,14 +1,19 @@
 package com.bike.service;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.apache.commons.io.FileUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.bike.dao.PartDao;
 import com.bike.dao.TwoWheelerDao;
@@ -31,6 +36,8 @@ public class DealerServiceImpl implements DealerService {
 		System.out.println("In ctor of " + getClass().getName());
 	}
 	
+	@Value("${folder.location}")
+	private String folderLocation;
 	
 	@Autowired
 	private ModelMapper mapper;
@@ -77,7 +84,7 @@ public class DealerServiceImpl implements DealerService {
 			TwoWheelers detachedBike = twoWheelerDao.save(bike);
 			if(detachedBike!= null){	
 				String message = "Record Successfully Added";
-				return ResponseEntity.status(HttpStatus.ACCEPTED).body(message);
+				return ResponseEntity.status(HttpStatus.ACCEPTED).body(detachedBike.getId());
 			}
 			else
 			{
@@ -119,7 +126,7 @@ public class DealerServiceImpl implements DealerService {
 			Parts detachedPart = partDao.save(part);
 			if(detachedPart!= null){	
 				String message = "Record Successfully Added";
-				return ResponseEntity.status(HttpStatus.ACCEPTED).body(message);
+				return ResponseEntity.status(HttpStatus.ACCEPTED).body(detachedPart.getId());
 			}
 			else
 			{
@@ -212,5 +219,40 @@ public class DealerServiceImpl implements DealerService {
 			throw new UserAlreadyExistsException("Some sql exception occured while adding part.");
 		}
 	}
+	
+	@Override
+	public ResponseEntity<?> uploadBikeImageToFolderPathToDBService(Long bikeId, MultipartFile image) throws IOException{
+		TwoWheelers bike = twoWheelerDao.findById(bikeId).orElseThrow(() -> new ResourceNotFoundException("Invalid bike ID"));
+		File folder = new File(folderLocation);
+		if (folder.exists()) {
+			System.out.println("folder exists already.");
+		} else {
+			folder.mkdir();
+			System.out.println("created a folder.");
+		}
+		String path = folderLocation.concat(bike.getName());
+		FileUtils.writeByteArrayToFile(new File(path), image.getBytes());
+		bike.setImagePath(path);
+		String message = "Image and image path saved successfully.";
+		return ResponseEntity.status(HttpStatus.OK).body(message);
+	}
+	
+	public ResponseEntity<?> uploadPartImageToFolderPathToDBService(Long partId, MultipartFile image) throws IOException{
+		Parts part = partDao.findById(partId).orElseThrow(() -> new ResourceNotFoundException("Invalid part ID"));
+		File folder = new File(folderLocation);
+		if (folder.exists()) {
+			System.out.println("folder exists already.");
+		} else {
+			folder.mkdir();
+			System.out.println("created a folder.");
+		}
+		String path = folderLocation.concat(part.getName());
+		FileUtils.writeByteArrayToFile(new File(path), image.getBytes());
+		part.setImagePath(path);
+		String message = "Image and image path saved successfully.";
+		return ResponseEntity.status(HttpStatus.OK).body(message);
+	}
+	
+	
 
 }

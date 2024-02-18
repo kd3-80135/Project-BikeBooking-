@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
+
 function BikeDetails(props) {
     const [bike, setBike] = useState([]);
     const [message, setMessage] = useState("");
@@ -47,7 +48,7 @@ function BikeDetails(props) {
         <div className="container">
             <div className="row">
                 <div className="col-md-6">
-                    <img src={bike.imageURL} className="card-img-top" alt={bike.name} />
+                    <img src={`./${bike.name}.jpg`} className="card-img-top" alt={bike.name} />
                 </div>
                 <div className="col-md-6">
                     <div className="card-body">

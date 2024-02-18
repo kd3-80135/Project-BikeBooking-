@@ -68,6 +68,7 @@ function DealerBikeList() {
             <th>Approve Status</th>
             <th>Delete</th>
             <th>Edit</th>
+            
           </tr>
         </thead>
         <tbody>
@@ -102,6 +103,12 @@ function DealerBikeList() {
 
                 </div>
               </td>
+              <td>
+              <Link to={`/imageupload?bikeId=${bikes.id}`}>
+                    <button className="btn btn-info">Add Image</button>
+                  </Link>
+                
+              </td>
 
 
             </tr>
@@ -109,7 +116,7 @@ function DealerBikeList() {
         </tbody>
       </table>
       <div>
-        <Link to='/addBike'>
+        <Link to={`/addbike`}>
           <button className="btn btn-info">AddBike</button>
         </Link>
 

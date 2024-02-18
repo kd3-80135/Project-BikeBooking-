@@ -28,4 +28,11 @@ public class OrderDTO {
 	
 	private LocalDateTime cancelledAt;
 	
+	public OrderDTO (Long orderId, LocalDateTime placedAt, LocalDateTime deliveredAt, LocalDateTime cancelledAt) {
+		this.orderId = orderId;
+		this.placedAt = placedAt;
+		this.deliveredAt = deliveredAt;
+		this.cancelledAt = cancelledAt;
+	}
+	
 }

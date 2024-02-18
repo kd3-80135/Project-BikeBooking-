@@ -16,6 +16,9 @@ function Admin() {
                 <div className="col">
                     <Link to='/parts' className="btn btn-info">Part Details</Link>
                 </div>
+                <div className="col">
+                    <Link to='/adminorder' className="btn btn-info">Order Details</Link>
+                </div>
             </div>
 
             <div className="row">

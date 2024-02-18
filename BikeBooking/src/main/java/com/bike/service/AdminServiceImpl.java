@@ -1,5 +1,6 @@
 package com.bike.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,6 +15,8 @@ import com.bike.dao.OrderDao;
 import com.bike.dao.PartDao;
 import com.bike.dao.TwoWheelerDao;
 import com.bike.dao.UserDao;
+import com.bike.dto.CartBikeDTO;
+import com.bike.dto.CartPartDTO;
 import com.bike.dto.OrderDTO;
 import com.bike.dto.ResponseAdminBikeDTO;
 import com.bike.dto.ResponseAdminPartDTO;
@@ -232,11 +235,76 @@ public class AdminServiceImpl implements AdminService{
 			return ResponseEntity.status(HttpStatus.OK).body(orderList);
 		}
 	}
-	
-	
-	
-	
 
+	@Override
+	public ResponseEntity<?> cancelOrderService(Long orderId) {
+		Orders order = orderDao.findById(orderId).get();
+		User user = orderDao.findUser(orderId);
+		List<TwoWheelers> bikeList = orderDao.getOrderBikes(user);
+		List<Parts> partList = orderDao.getOrderParts(user);
+		if (partList.isEmpty() && bikeList.isEmpty()) {
+			throw new ResourceNotFoundException("No bikes and parts available in orders");
+		}
+		else {
+			if (bikeList.isEmpty()) {
+				for (Parts part : partList) {
+					part.removeOrders(order);
+				}
+			}
+			else if (partList.isEmpty()){
+				for (TwoWheelers bike : bikeList) {
+					bike.removeOrders(order);
+				}
+			}
+			else{
+				for (Parts part : partList) {
+					part.removeOrders(order);
+				}
+				for (TwoWheelers bike : bikeList) {
+					bike.removeOrders(order);
+				}
+			}
+		}
+		order.setCancelledStatus(true);
+		order.setCancelledAt(LocalDateTime.now());
+		String message = "Order cancelled.";
+		return ResponseEntity.status(HttpStatus.OK).body(message);	
+	}
+
+	@Override
+	public ResponseEntity<?> successOrderService(Long orderId) {
+		Orders order = orderDao.findById(orderId).get();
+		User user = orderDao.findUser(orderId);
+		List<TwoWheelers> bikeList = orderDao.getOrderBikes(user);
+		List<Parts> partList = orderDao.getOrderParts(user);
+		if (partList.isEmpty() && bikeList.isEmpty()) {
+			throw new ResourceNotFoundException("No bikes and parts available in orders");
+		}
+		else {
+			if (bikeList.isEmpty()) {
+				for (Parts part : partList) {
+					part.removeOrders(order);
+				}
+			}
+			else if (partList.isEmpty()){
+				for (TwoWheelers bike : bikeList) {
+					bike.removeOrders(order);
+				}
+			}
+			else{
+				for (Parts part : partList) {
+					part.removeOrders(order);
+				}
+				for (TwoWheelers bike : bikeList) {
+					bike.removeOrders(order);
+				}
+			}
+		}
+		order.setSuccessfullStatus(true);
+		order.setDeliveredAt(LocalDateTime.now());
+		String message = "Order delivered.";
+		return ResponseEntity.status(HttpStatus.OK).body(message);
+	}
 	
 	
 }

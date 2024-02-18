@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+import '../node_modules/font-awesome/css/font-awesome.min.css'
+
 function Footer() {
   return (
     <div className="footer-container">

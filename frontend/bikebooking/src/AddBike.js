@@ -1,16 +1,21 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
+
 
 function AddBike() {
     var id = sessionStorage.getItem("userId");
 
     const [bikes, setBikes] = useState([]);
-    // const [bike, setBike] = useState({ name: "", price: "", quantity: "", bikeType: "", bikeBrands: "", description: "", colour: "" });
+   // const [bike, setBike] = useState({ name: "", price: "", quantity: "", bikeType: "", bikeBrands: "", description: "", colour: "" });
     const [message, setMessage] = useState("")
+    const [bikeId, setBikeId] = useState("")
     var url = `http://localhost:8080/users/dealer/addBike/${id}`;
+    var url2= `/imageupload?bikeId=${bikeId}`;
     const history = useHistory();
     const [bike, setBike] = useState({
+        
         name: "",
         price: "",
         quantity: "",
@@ -54,10 +59,11 @@ function AddBike() {
             if (result.data !== undefined) {
                 ClearBoxes();
                 ShowMessage("Record Added Successfully");
+                setBikeId(result.data)
             }
         })
             .then(() => window.setTimeout(() => {
-                history.push('/bikeList')
+                history.push('/bikelist')
             }, 3000))
             .catch((error) => {
                 console.error("Error:", error);
@@ -165,8 +171,9 @@ function AddBike() {
                             Submit
                         </button>
                     </div>
-
-                </div>
+                    <div>
+                       
+                    </div>
 
                
             </div>
@@ -175,7 +182,7 @@ function AddBike() {
                 {message}
             </div>
         </div>
+        </div>
     );
 }
-
 export default AddBike;

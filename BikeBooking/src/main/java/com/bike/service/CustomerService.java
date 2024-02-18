@@ -1,5 +1,7 @@
 package com.bike.service;
 
+import javax.validation.Valid;
+
 import org.springframework.http.ResponseEntity;
 
 public interface CustomerService {
@@ -33,6 +35,8 @@ public interface CustomerService {
 	ResponseEntity<?> cartPartListService(Long userid);
 
 	ResponseEntity<?> order(Long userId);
+
+	ResponseEntity<?> myOrders(Long userId);
 	
 
 }

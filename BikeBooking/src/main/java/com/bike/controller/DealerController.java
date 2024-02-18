@@ -1,6 +1,8 @@
 package com.bike.controller;
 
 
+import java.io.IOException;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +16,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.bike.dto.AddBikeDTO;
 import com.bike.dto.AddPartDTO;
@@ -93,6 +97,18 @@ public class DealerController {
 	public ResponseEntity<?> updatePart (@PathVariable @Valid long partId, @RequestBody @Valid AddPartDTO partDTO){
 		System.out.println("In updatePart method of " + getClass().getName());
 		return dealerService.updatePartService(partId, partDTO);
+	}
+	
+	@PostMapping(value ="/bikeImages/{bikeId}", consumes = "multipart/form-data")
+	public ResponseEntity<?> uploadBikeImageToFolderPathToDB (@PathVariable Long bikeId, @RequestParam MultipartFile image) throws IOException{
+		System.out.println(" In uploadPartImageToFolderPathToDB method of " + getClass().getName());
+		return dealerService.uploadBikeImageToFolderPathToDBService(bikeId, image);
+	}
+	
+	@PostMapping(value ="/partImages/{partId}", consumes = "multipart/form-data")
+	public ResponseEntity<?> uploadPartImageToFolderPathToDB (@PathVariable Long partId, @RequestParam MultipartFile image) throws IOException{
+		System.out.println(" In uploadPartImageToFolderPathToDB method of " + getClass().getName());
+		return dealerService.uploadBikeImageToFolderPathToDBService(partId, image);
 	}
 	
 }

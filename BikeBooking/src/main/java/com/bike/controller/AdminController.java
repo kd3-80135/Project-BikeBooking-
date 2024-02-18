@@ -28,7 +28,6 @@ public class AdminController {
 	
 	@Autowired
 	private AdminService adminService;
-	
 	@GetMapping("/userList")
 	public ResponseEntity<?> getUserList(){
 		System.out.println("In getUserList method of " + getClass().getName());
@@ -106,5 +105,20 @@ public class AdminController {
 		System.out.println("In orderList method of " + getClass().getName());
 		return adminService.orderListService();
 	}
+	
+	@PutMapping ("/cancelOrder/{orderId}")
+	public ResponseEntity<?> cancelOrder(@PathVariable @Valid Long orderId){
+		System.out.println("In cancelOrder method of " + getClass().getName());
+		return adminService.cancelOrderService(orderId);
+	}
+	
+	@PutMapping ("/successOrder/{orderId}")
+	public ResponseEntity<?> successOrder (@PathVariable @Valid Long orderId){	
+		System.out.println("In successOrder method of " + getClass().getName());
+		return adminService.successOrderService(orderId);
+	}
+	
+	
+	
 	
 }

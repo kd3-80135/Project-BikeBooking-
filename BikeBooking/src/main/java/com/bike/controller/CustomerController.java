@@ -120,7 +120,11 @@ public class CustomerController {
 		return customerService.order(userId);
 	}
 	
-	
+	@GetMapping ("/myOrders/{userId}")
+	public ResponseEntity<?> myOrders (@PathVariable @Valid Long userId){
+		System.out.println("In myOrders method of " + getClass().getName());
+		return customerService.myOrders(userId);
+	}
 	
 	
 }

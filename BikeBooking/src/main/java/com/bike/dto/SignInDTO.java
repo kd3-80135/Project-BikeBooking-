@@ -19,7 +19,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 public class SignInDTO {
-	@Column(unique = true)
+	
 	@NotBlank(message = "Email Required")
 	@Length(min = 10, max = 20, message = "Invalid Length of Email")
 	@Email(message= "Invalid Email")

@@ -32,6 +32,10 @@ public interface AdminService {
 	ResponseEntity<?> deletePartService(long id);
 
 	ResponseEntity<?> orderListService();
+
+	ResponseEntity<?> cancelOrderService(Long orderId);
+
+	ResponseEntity<?> successOrderService(Long orderId);
 	
 	
 	

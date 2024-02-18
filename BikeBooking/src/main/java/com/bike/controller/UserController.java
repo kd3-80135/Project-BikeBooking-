@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bike.dto.EditAdressDTO;
@@ -69,6 +70,26 @@ public class UserController {
 		System.out.println("In Upadate Address method of "  + getClass().getName());
 		return userService.updateAddressService(id, addrDTO);
 	}
+	
+	@PostMapping("/forgotPassword/{email}")
+    public ResponseEntity<String> forgotPassword(@PathVariable @Valid String email) {
+		System.out.println("In forgotPassword method of "  + getClass().getName());
+		return userService.forgotPasswordService(email);
+    }
+	
+	@PostMapping("verifyOTP/{otp}/{email}")
+	public ResponseEntity<String> verifyOTP(@PathVariable @Valid String otp, @PathVariable @Valid String email) {
+		System.out.println("In verifyOTP method of "  + getClass().getName());
+		return userService.verifyOTPService (otp,email);
+    }
+
+    @PostMapping("/resetPassword")
+    public ResponseEntity<String> resetPassword(@RequestBody @Valid SignInDTO signInDTO) {
+    	System.out.println("In resetPassword method of " + getClass().getName());
+    	return userService.resetPasswordService(signInDTO);
+    }
+	
+	
 	
 	
 	
