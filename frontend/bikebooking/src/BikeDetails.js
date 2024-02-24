@@ -45,7 +45,7 @@ function BikeDetails(props) {
     }, [id]);
 
     return (
-        <div className="container">
+        <div className="" style={{margin:40}}>
             <div className="row">
                 <div className="col-md-6">
                     <img src={`./${bike.name}.jpg`} className="card-img-top" alt={bike.name} />

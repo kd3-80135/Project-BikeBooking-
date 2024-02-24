@@ -28,9 +28,9 @@ const DropDown = () => {
             zIndex: 1,
           }}
         >
-          <p><a href='./edit'>Profile</a></p>
-          <p><a href='./editAddress'>My Address</a></p>
-          <p><a href='/orders' >Orders</a></p>
+          <p><a href='./edit' style={{textDecoration:'none',font:'-moz-initial',fontSize:16, fontWeight:'bold'}}>Profile</a></p>
+          <p><a href='./editAddress'style={{textDecoration:'none',font:'-moz-initial',fontSize:16, fontWeight:'bold'}}>My Address</a></p>
+          <p><a href='/orders' style={{textDecoration:'none',font:'-moz-initial',fontSize:16, fontWeight:'bold'}} >Orders</a></p>
         </div>
       )}
     </div>

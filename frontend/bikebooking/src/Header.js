@@ -29,20 +29,20 @@ const Header = () => {
 
   return (
 
-    <div className='container-fluid'>
+    <div className='container-fluid' >
       <div className='header-most-top-left container-fluid'>
         <Navbar expand='lg'>
           <Container>
             <Navbar.Brand as={Link} to='/'>
-              <img src={bike} style={{ width: '50px', height: 'auto' }} alt="Bike Logo" />
+              <img src='./bikelogo2.jpg' style={{ width: '50px', height: 'auto' }} alt="Bike Logo" />
             </Navbar.Brand>
             
           </Container>
         </Navbar>
       </div>
 <div  className='header-container'></div>
-      <Navbar bg='light' expand='lg'>
-        <Container>
+      <Navbar bg='light' expand='lg' >
+        <Container >
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
           <Navbar.Collapse id='basic-navbar-nav'>
             <Nav className='me-auto'>
@@ -50,40 +50,58 @@ const Header = () => {
                 {!loggedin && (
                   <li className='nav-item'>
                     <Link to='/'>
-                      <span className='nav-link active'>Home</span>
+                      <span className='nav-link active'><img src="./home.png" style={{width:25}}/></span>
                     </Link>
                   </li>
                 )}
                  {loggedin && role == "CUSTOMER_ROLE" && (
                   <li className="nav-item" aria-current="page">
-                    <Link to="/user">
-                      <span className="nav-link active">Home</span>
+                    <Link to="/customerbikelist">
+                      <span className="nav-link active"><img src="./home.png" style={{width:25}}/></span>
                     </Link>
                   </li>)}
 
                 {loggedin && role == "ADMIN_ROLE" && (
                   <li className="nav-item" aria-current="page">
-                    <Link to="/admin">
-                      <span className="nav-link active">Home</span>
+                    <Link to="/admin" >
+                      <span className="nav-link active"><img src="./home.png" style={{width:25}}/></span>
                     </Link>
                   </li>)}
                 {loggedin && role == "DEALER_ROLE" && (
                   <li className='nav-item' aria-current='page'>
-                    <Link to={`/dealer`}>
-                      <span className='nav-link active'>Home</span>
+                    <Link to={`/dealer`} style={{textDecoration:'none',font:'-moz-initial',fontSize:16, fontWeight:'bold'}}>
+                      <span className='nav-link active'><img src="./home.png" style={{width:25}}/></span>
                     </Link>
                   </li>
                 )}
                 <li className='nav-item'>
-                  <Link to='/contact'>
-                    <span className='nav-link'>Contact Us</span>
+                  <Link to='/aboutus' style={{textDecoration:'none'}}>
+                    <span className='nav-link'> <div style={{font:'-moz-initial',fontSize:16, fontWeight:'bold'}}>ABOUT US</div></span>
                   </Link>
                 </li>
                 {loggedin && role === 'CUSTOMER_ROLE' && (
                   <li className='nav-item'>
-                    <Link to='/cart'>
+                    <Link to='/cart' >
                       <span className='nav-link'>
-                        <img src={Cart} className='A' alt='cart' title='cart' width={"35px"}  />
+                        <img src={Cart} className='A' alt='cart' title='cart' style={{width:'35px',height:'35px'}}  />
+                      </span>
+                    </Link>
+                  </li>
+                )}
+                {loggedin && role === 'CUSTOMER_ROLE' && (
+                  <li className='nav-item'>
+                    <Link to='/customerbikelist' style={{textDecoration:'none',font:'-moz-initial',fontSize:16, fontWeight:'bold'}}>
+                      <span className='nav-link'>
+                        BIKES
+                      </span>
+                    </Link>
+                  </li>
+                )}
+                {loggedin && role === 'CUSTOMER_ROLE' && (
+                  <li className='nav-item'>
+                    <Link to='/customerpartlist' style={{textDecoration:'none',font:'-moz-initial',fontSize:16, fontWeight:'bold'}}>
+                      <span className='nav-link'>
+                        PARTS
                       </span>
                     </Link>
                   </li>
@@ -94,13 +112,13 @@ const Header = () => {
               {!loggedin && (
                 <>
                   <li className='button'>
-                    <Link to='/signin'>
-                      <span className='nav-link'>SignIn</span>
+                    <Link to='/signin' style={{textDecoration:'none'}}>
+                      <span className='nav-link' style={{font:'-moz-initial',fontSize:16, fontWeight:'bold'}}>SignIn</span>
                     </Link>
                   </li>
                   <li className='signup'>
-                    <Link to='/setrole'>
-                      <span className='nav-link'>SignUp</span>
+                    <Link to='/setrole' style={{textDecoration:'none'}}>
+                      <span className='nav-link' style={{font:'-moz-initial',fontSize:16, fontWeight:'bold'}}>SignUp</span>
                     </Link>
                   </li>
                 </>
@@ -111,7 +129,7 @@ const Header = () => {
                     {role === 'CUSTOMER_ROLE' || role === 'DEALER_ROLE' ? (
                       <DropDown />
                     ) : (
-                      <Link to='/myprofile'>
+                      <Link to='/myprofile' style={{textDecoration:'none',font:'-moz-initial',fontSize:16, fontWeight:'bold'}}>
                         <span className='nav-link'>{userName}</span>
                       </Link>
                     )}

@@ -42,10 +42,10 @@ function PartDetails(props) {
     }, [id]);
 
     return (
-        <div>
+        <div style={{margin:50}}>
             <div className="row">
-                <div className="col-md-6">
-                    <img src={part.imageURL} className="card-img-top" alt={part.name} />
+                <div className="col-md-6" style={{width:500}}>
+                    <img src={`./${part.name}.jpg` } className="card-img-top" alt={part.name} />
                 </div>
                 <div className="col-md-6">
                     <div className="card-body">

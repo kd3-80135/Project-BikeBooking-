@@ -21,7 +21,7 @@ import lombok.ToString;
 public class SignInDTO {
 	
 	@NotBlank(message = "Email Required")
-	@Length(min = 10, max = 20, message = "Invalid Length of Email")
+	@Length(min = 10, max = 50, message = "Invalid Length of Email")
 	@Email(message= "Invalid Email")
 	private String email;
 	

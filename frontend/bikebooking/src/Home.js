@@ -1,5 +1,6 @@
 import React from "react";
 import bike from './images/image.jpg';
+import bike1 from './images/gifbike2.gif'
 import './styles/cart.css'
 
 
@@ -8,7 +9,7 @@ function Home() {
     return (
         <div className="Landing2_Landin">
             <img
-                src={bike}
+                src={bike1}
                 alt="Login image"
                 className="w-100 vh-70 login img styled-image"
                 style={{ objectFit: 'cover', objectPosition: '50% 50%' }}

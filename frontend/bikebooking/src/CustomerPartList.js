@@ -49,7 +49,7 @@ function CustomerPartList() {
                             <Link to={`/partDetails?partId=${part.id}`} className="text-decoration-none text-black">
                                 <div className="row">
                                     <div className="col-md-6">
-                                        <img src={part.imageURL} className="card-img-top" alt={part.name} />
+                                        <img src={`./${part.name}.jpg`} className="card-img-top" alt={part.name} />
                                     </div>
                                     <div className="col-md-6">
                                         <div className="card-body">

@@ -84,13 +84,8 @@ function AdminOrder() {
                 }}>Success</button>)}
 
               </td> */}
-              </tr>
-            ))}
-                
-
-            </tbody>
-          </table>
-          {orders.map((order) => (
+              <td>
+              {orders.map((order) => (
       <div key={order.orderId}>
         {order.cancelledAt === null && order.deliveredAt === null && (
           <div>
@@ -108,6 +103,13 @@ function AdminOrder() {
         )}
       </div>
     ))}
+              </td>
+              </tr>
+            ))}
+                
+
+            </tbody>
+          </table>
         </div>
       );
 }

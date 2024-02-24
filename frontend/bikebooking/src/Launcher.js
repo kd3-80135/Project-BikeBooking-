@@ -26,49 +26,53 @@ import User from './User.js';
 import PartDetails from './PartDetails.js';
 import Cart from './Cart.js';
 import AdminOrder from './AdminOrder.js';
+import ForgotPassword from './ForgotPassword';
+import ResetPassword from './ResetPassword';
 import AboutUs from './AboutUs.js';
 import ContactUs from './ContactUs.js';
-import CustomerOrders from './CustomerOrder.js';
-import ImageUpload from './ImageUpload.js';
 
 function Launcher(){
     return (
-        <div className='container'>
-            <Header />
-            
-            <hr></hr>
-            <Switch>
-                <Route exact path="/signup" component={SignUp}/>
-                <Route exact path="/" component={Home}/>
-                <Route path="/admin" exact component={Admin} />
-                <Route path="/dealer" exact component={Dealer} />   
-                <Route path="/user" exact component={User} />
-                <Route exact path="/signin" component={SignIn}/>
-                <Route exact path="/setrole" component={SetRole}/>
-                <Route exact path="/edit" component={EditProfile}/>
-                <Route exact path="/editAddress" component={EditAddress}/>
-                <Route exact path="/userlist" component={Userlist}/>
-                <Route exact path="/bikes" component={BikeList}/>
-                <Route exact path="/parts" component={PartList}/>
-                <Route exact path="/bikeList" component={DealerBikeList}/>
-                <Route exact path="/partList" component={DealerPartList}/>
-                <Route exact path="/addbike" component={AddBike} />
-                <Route exact path="/editbike" component={EditDealerBike} />
-                <Route exact path="/addPart" component={AddPart} />
-                <Route exact path="/editpart" component={EditDealerPart} />
-                <Route exact path="/customerbikelist" component={CustomerBikeList} />
-                <Route path="/bikeDetails" component={BikeDetails} />
-                <Route exact path="/partDetails" component={PartDetails} />
-                <Route exact path="/customerpartlist" component={CustomerPartList} />
-                <Route exact path="/cart" component={Cart} />
-                <Route exact path="/adminorder" component={AdminOrder} />
-                <Route exact path="/about" component={AboutUs} />
-                <Route exact path="/contact" component={ContactUs} />
-                <Route exact path="/orders" component={CustomerOrders} />
-                <Route exact path="/imageupload" component={ImageUpload} />
+        <div  style={{backgroundColor:"lightcyan"}}>
 
-            </Switch>
-            <Footer />
+
+            <div >
+            <Header />
+          
+          <hr></hr>
+          <Switch>
+              <Route exact path="/signup" component={SignUp}/>
+              <Route exact path="/" component={Home}/>
+              <Route path="/admin" exact component={Admin} />
+              <Route path="/dealer" exact component={Dealer} />   
+              <Route path="/user" exact component={User} />
+              <Route exact path="/signin" component={SignIn}/>
+              <Route exact path="/setrole" component={SetRole}/>
+              <Route exact path="/edit" component={EditProfile}/>
+              <Route exact path="/editAddress" component={EditAddress}/>
+              <Route exact path="/userlist" component={Userlist}/>
+              <Route exact path="/bikes" component={BikeList}/>
+              <Route exact path="/parts" component={PartList}/>
+              <Route exact path="/bikeList" component={DealerBikeList}/>
+              <Route exact path="/partList" component={DealerPartList}/>
+              <Route exact path="/addbike" component={AddBike} />
+              <Route exact path="/editbike" component={EditDealerBike} />
+              <Route exact path="/addPart" component={AddPart} />
+              <Route exact path="/editpart" component={EditDealerPart} />
+              <Route exact path="/customerbikelist" component={CustomerBikeList} />
+              <Route path="/bikeDetails" component={BikeDetails} />
+              <Route exact path="/partDetails" component={PartDetails} />
+              <Route exact path="/customerpartlist" component={CustomerPartList} />
+              <Route exact path="/cart" component={Cart} />
+              <Route exact path="/adminorder" component={AdminOrder} />
+              <Route exact path="/forgotpassword" component={ForgotPassword} />
+              <Route exact path="/resetPassword" component={ResetPassword} />
+              <Route exact path="/contactus" component={ContactUs} />
+              <Route exact path="/aboutus" component={AboutUs}/>
+
+          </Switch>
+          <Footer />
+            </div>
         </div>
     );
 }

@@ -92,8 +92,7 @@ function BikeList() {
             <th>Brand</th>
             <th>Colour</th>
 
-            <th>Approve Status</th>
-            <th>Delete Status</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -106,14 +105,6 @@ function BikeList() {
               <td>{bikes.bikeType}</td>
               <td>{bikes.bikeBrands}</td>
               <td>{bikes.colour}</td>
-              <td>
-                {bikes.approveStatus == 0 && (
-                  <h6>No</h6>
-                )}
-                {bikes.approveStatus == 1 && (
-                  <h6>Yes</h6>
-                )}
-              </td>
 
 
               <td>

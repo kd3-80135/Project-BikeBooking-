@@ -83,10 +83,10 @@ function DealerBikeList() {
               <td>{bikes.colour}</td>
               <td>
                 {bikes.approveStatus == 0 && (
-                  <h6>No</h6>
+                  <h6>Not Approved</h6>
                 )}
                 {bikes.approveStatus == 1 && (
-                  <h6>Yes</h6>
+                  <h6>Approved</h6>
                 )}
               </td>
               <td>
@@ -104,7 +104,7 @@ function DealerBikeList() {
                 </div>
               </td>
               <td>
-              <Link to={`/imageupload?bikeId=${bikes.id}`}>
+                  <Link to={`/imageupload?bikeId=${bikes.id}`}>
                     <button className="btn btn-info">Add Image</button>
                   </Link>
                 

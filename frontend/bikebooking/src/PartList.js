@@ -70,8 +70,7 @@ function PartList() {
                         <th>ID</th>
                         <th>Part Name</th>
                         <th>Quantity</th>
-                        <th>ApproveStatus</th>
-                        <th>Delete Status</th>
+                        <th></th>
 
                     </tr>
                 </thead>
@@ -81,14 +80,6 @@ function PartList() {
                             <td>{parts.id}</td>
                             <td>{parts.name}</td>
                             <td>{parts.quantity}</td>
-                            <td>
-                {parts.approveStatus == 0 && (
-                  <h6>No</h6>
-                )}
-                {parts.approveStatus == 1 && (
-                  <h6>Yes</h6>
-                )}
-              </td>
                             <td>
                                 <button className='btn btn-danger' onClick={() => {
                                     if (window.confirm('Are You Sure To Delete Data ??')) { handleDelete(parts.id) }

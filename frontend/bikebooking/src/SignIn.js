@@ -60,7 +60,7 @@ const SignIn = () => {
       console.log("in dealer");
     } 
     else if (status === 202 && user.role === "CUSTOMER_ROLE") {
-      history.push("/user");
+      history.push("/customerbikelist");
       window.location = window.location.href;
       sessionStorage.setItem("userName", user.firstName);
       sessionStorage.setItem("userId", user.id);
@@ -128,7 +128,7 @@ const SignIn = () => {
           </div>
 
           <div className="mt-3 text-center">
-            <a className="text-muted" href="/">Forgot password?</a>
+            <a className="text-muted" href="/ForgotPassword">Forgot password?</a>
           </div>
 
           <div className="mt-4 text-center">

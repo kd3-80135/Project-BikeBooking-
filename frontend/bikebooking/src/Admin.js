@@ -6,25 +6,63 @@ import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 function Admin() {
     return (
         <div className="container mt-5">
-            <div className="row mb-4">
-                <div className="col">
-                    <Link to='/userlist' className="btn btn-primary">User Details</Link>
-                </div>
-                <div className="col">
-                    <Link to='/bikes' className="btn btn-success">Bike Details</Link>
-                </div>
-                <div className="col">
-                    <Link to='/parts' className="btn btn-info">Part Details</Link>
-                </div>
-                <div className="col">
-                    <Link to='/adminorder' className="btn btn-info">Order Details</Link>
-                </div>
+            <div className="row row-cols-1 row-cols-md-2 justify-content-center g-4 mt-3">
+                
+                     <div className="col text-white bg-primary rounded-3 py-4 px-5">
+                        <Link
+                        to={{ pathname: "/userlist"}}
+                        className="text-decoration-none"
+                        >
+                        <div className="card mb-3">
+                        <div className="card-body" >
+                            <h5 className="card-title" >User Details</h5>
+                        </div>
+                        </div>
+                    </Link>
+                    </div>
+
+                    <div className="col text-white bg-info rounded-3 py-4 px-5">
+                        <Link
+                        to={{ pathname: "/bikes"}}
+                        className="text-decoration-none"
+                        >
+                        <div className="card mb-3">
+                        <div className="card-body">
+                            <h5 className="card-title">Bike Details</h5>
+                        </div>
+                        </div>
+                    </Link>
+                    </div>
+                    <div className="col text-white bg-success rounded-3 py-4 px-5">
+                        <Link
+                        to={{ pathname: "/parts"}}
+                        className="text-decoration-none"
+                        >
+                        <div className="card mb-3">
+                        <div className="card-body">
+                            <h5 className="card-title">Part Details</h5>
+                        </div>
+                        </div>
+                    </Link>
+                    </div>
+                    <div className="col text-white bg-secondary rounded-3 py-4 px-5">
+                        <Link
+                        to={{ pathname: "/adminorder"}}
+                        className="text-decoration-none"
+                        >
+                        <div className="card mb-3">
+                        <div className="card-body">
+                            <h5 className="card-title">Order Details</h5>
+                        </div>
+                        </div>
+                    </Link>
+                    </div>
+                
+                
             </div>
 
-            <div className="row">
-                <div className="col-md-6">
-                    <img src={Bike} alt="Login image" className="w-100 vh-50 loginimg" style={{ objectPosition: 'right' }} />
-                </div>
+            <div className="container">
+               
                 
             </div>
         </div>

@@ -72,8 +72,9 @@ function DealerPartList() {
                         <th>Part Name</th>
                         <th>Quantity</th>
                         <th>ApproveStatus</th>
-                        <th>Delete Status</th>
-                        <th>Delete</th>
+                        <th></th>
+                        <th></th>
+                        
 
                     </tr>
                 </thead>
@@ -85,10 +86,10 @@ function DealerPartList() {
                             <td>{parts.quantity}</td>
                             <td>
                                 {parts.approveStatus == 0 && (
-                                    <h6>No</h6>
+                                    <h6>Not Approved</h6>
                                 )}
                                 {parts.approveStatus == 1 && (
-                                    <h6>Yes</h6>
+                                    <h6>Approved</h6>
                                 )}
                             </td>
                             <td>

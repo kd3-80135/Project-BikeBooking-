@@ -1,25 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import CustomerBikeList from "./CustomerBikeList";
 
 function User() {
     return (
         <div className="container mt-5">
-            <div className="row mb-4">
-                <div className="col">
-                    <Link to='/customerbikelist' className="btn btn-primary">Bike List</Link>
-               <br/>
-               <br/>
-               <br/>
-               <Link to='/customerpartlist' className="btn btn-success">Part List</Link>
+            <div className="row mb-4" onLoad={CustomerBikeList}>
                 
-                </div>
-                <div className="col">
-                    
-                    </div>
+                
             </div>
 
-            <div className="row">
+            {/* <div className="row">
                 <div className="col-md-6">
                     <div className="card p-3">
                         <h3 className="mb-4">Explore Our Products</h3>
@@ -38,7 +30,7 @@ function User() {
                         <p>Special deals and discounts!</p>
                     </aside>
                 </div>
-            </div>
+            </div> */}
         </div>
     );
 }

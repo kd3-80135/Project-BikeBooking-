@@ -11,8 +11,8 @@ function Footer() {
           <div className="container">
             <ul className="nav justify-content-center mb-3">
               <li className="nav-item">
-                <Link to="/about" className="nav-link">
-                  About Us
+                <Link to="/contactus" className="nav-link" style={{textDecoration:'none',font:'-moz-initial',fontSize:16, fontWeight:'bold'}}>
+                  CONTACT US
                 </Link>
               </li>
             </ul>
